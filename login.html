@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Signalin - Platform login dan registrasi untuk akses dunia digital">
+    <meta name="theme-color" content="#D4AF37">
     <title>Signalin - Login & Registrasi</title>
     
     <!-- Bootstrap 5 CSS -->
@@ -34,47 +36,53 @@
             --bs-warning: #FFD700;
             --bs-dark: #000000;
             --bs-light: #F5F5F5;
+            
+            /* Custom Variables */
+            --border-radius-lg: 1rem;
+            --transition-base: all 0.3s ease;
         }
         
-        /* Custom Bootstrap Theme */
+        /* Custom Bootstrap Theme Overrides */
         .bg-primary {
-            background-color: var(--gold-primary) !important;
+            background-color: var(--gold-primary);
         }
         
         .text-primary {
-            color: var(--gold-primary) !important;
+            color: var(--gold-primary);
         }
         
         .border-primary {
-            border-color: var(--gold-primary) !important;
+            border-color: var(--gold-primary);
         }
         
         .btn-primary {
-            background-color: var(--gold-primary);
-            border-color: var(--gold-primary);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--gold-dark);
-            border-color: var(--gold-dark);
+            --bs-btn-bg: var(--gold-primary);
+            --bs-btn-border-color: var(--gold-primary);
+            --bs-btn-hover-bg: var(--gold-dark);
+            --bs-btn-hover-border-color: var(--gold-dark);
+            --bs-btn-active-bg: var(--gold-dark);
+            --bs-btn-active-border-color: var(--gold-dark);
+            --bs-btn-disabled-bg: var(--gold-primary);
+            --bs-btn-disabled-border-color: var(--gold-primary);
         }
         
         .btn-outline-primary {
-            color: var(--gold-primary);
-            border-color: var(--gold-primary);
+            --bs-btn-color: var(--gold-primary);
+            --bs-btn-border-color: var(--gold-primary);
+            --bs-btn-hover-bg: var(--gold-primary);
+            --bs-btn-hover-border-color: var(--gold-primary);
+            --bs-btn-hover-color: #000;
+            --bs-btn-active-bg: var(--gold-primary);
+            --bs-btn-active-border-color: var(--gold-primary);
         }
         
-        .btn-outline-primary:hover {
-            background-color: var(--gold-primary);
-            border-color: var(--gold-primary);
-            color: #000;
-        }
-        
-        .form-control:focus {
+        .form-control:focus,
+        .form-select:focus {
             border-color: var(--gold-primary);
             box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
         }
         
+        /* Global Styles */
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
@@ -82,7 +90,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 1.25rem;
+            margin: 0;
         }
         
         /* Background Animation */
@@ -128,19 +137,23 @@
         }
         
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            50% { 
+                transform: translateY(-1.25rem) rotate(180deg); 
+            }
         }
         
         /* Custom Card Styling */
         .auth-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 24px;
+            border-radius: var(--border-radius-lg);
             border: 1px solid rgba(212, 175, 55, 0.2);
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: var(--transition-base);
         }
         
         .auth-card::before {
@@ -149,35 +162,39 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 0.25rem;
             background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
         }
         
         .auth-card:hover {
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
-            transform: translateY(-5px);
+            box-shadow: 0 0.9375rem 2.1875rem rgba(212, 175, 55, 0.2);
+            transform: translateY(-0.3125rem);
         }
         
         /* Brand Styling */
         .auth-brand {
             font-family: 'Alfa Slab One', cursive;
             font-size: clamp(2.5rem, 8vw, 3.5rem);
-            letter-spacing: 2px;
+            letter-spacing: 0.125rem;
             background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             display: inline-block;
+            margin: 0;
         }
         
         .auth-tagline {
             color: var(--primary-gray);
+            font-size: 1.25rem;
+            margin-top: 0.5rem;
         }
         
         /* Form Styling */
         .form-label {
             font-weight: 600;
             color: var(--primary-black);
+            margin-bottom: 0.5rem;
         }
         
         .input-with-icon {
@@ -186,15 +203,16 @@
         
         .input-icon {
             position: absolute;
-            left: 16px;
+            left: 1rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--primary-gray);
-            z-index: 10;
+            z-index: 4;
+            pointer-events: none;
         }
         
         .input-with-icon .form-control {
-            padding-left: 48px;
+            padding-left: 3rem;
         }
         
         /* Custom Button */
@@ -203,22 +221,23 @@
             border: none;
             color: #000;
             font-weight: 700;
-            padding: 12px 24px;
-            transition: all 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            transition: var(--transition-base);
         }
         
-        .btn-gold:hover {
+        .btn-gold:hover,
+        .btn-gold:focus {
             background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
             color: #000;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+            transform: translateY(-0.125rem);
+            box-shadow: 0 0.625rem 1.5625rem rgba(212, 175, 55, 0.4);
         }
         
         /* Divider */
         .divider {
             display: flex;
             align-items: center;
-            margin: 25px 0;
+            margin: 1.5625rem 0;
         }
         
         .divider-line {
@@ -228,26 +247,28 @@
         }
         
         .divider-text {
-            padding: 0 15px;
+            padding: 0 0.9375rem;
             font-size: 0.85rem;
             color: var(--primary-gray);
             font-weight: 500;
+            white-space: nowrap;
         }
         
         /* Notification */
         .notification {
             position: fixed;
-            top: 30px;
-            right: 30px;
+            top: 1.875rem;
+            right: 1.875rem;
             z-index: 9999;
-            min-width: 320px;
-            border-radius: 14px;
-            border-left: 5px solid;
+            min-width: 20rem;
+            border-radius: 0.875rem;
+            border-left: 0.3125rem solid;
             display: none;
             animation: slideInRight 0.5s cubic-bezier(0.65, 0, 0.35, 1);
             transform: translateX(120%);
             transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
             border-top: 1px solid rgba(212, 175, 55, 0.2);
+            max-width: calc(100vw - 3.75rem);
         }
         
         .notification.show {
@@ -290,7 +311,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(0.3125rem);
         }
         
         .redirect-overlay.active {
@@ -304,79 +325,183 @@
         }
         
         .redirect-spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(255, 255, 255, 0.1);
+            width: 3.75rem;
+            height: 3.75rem;
+            border: 0.3125rem solid rgba(255, 255, 255, 0.1);
             border-top-color: var(--gold-primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 25px;
+            margin-bottom: 1.5625rem;
         }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .auth-card {
-                padding: 20px !important;
-            }
-            
-            .notification {
-                top: 20px;
-                right: 20px;
-                left: 20px;
-                min-width: auto;
-            }
-            
-            .auth-brand {
-                font-size: 2.5rem;
-            }
+        /* Form Validation Styles */
+        .was-validated .form-control:valid,
+        .form-control.is-valid {
+            border-color: var(--bs-form-valid-border-color);
+            padding-right: calc(1.5em + 0.75rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+        
+        .was-validated .form-control:invalid,
+        .form-control.is-invalid {
+            border-color: var(--bs-form-invalid-border-color);
+            padding-right: calc(1.5em + 0.75rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+        
+        .invalid-feedback {
+            display: none;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: var(--bs-form-invalid-color);
+        }
+        
+        .was-validated :invalid ~ .invalid-feedback,
+        .was-validated :invalid ~ .invalid-tooltip,
+        .is-invalid ~ .invalid-feedback,
+        .is-invalid ~ .invalid-tooltip {
+            display: block;
         }
         
         /* Helper Text */
         .form-text {
             font-size: 0.8rem;
             color: var(--primary-gray);
+            margin-top: 0.25rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .auth-card {
+                padding: 1.25rem !important;
+            }
+            
+            .notification {
+                top: 1.25rem;
+                right: 1.25rem;
+                left: 1.25rem;
+                min-width: auto;
+            }
+            
+            .auth-brand {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding-left: 0.625rem;
+                padding-right: 0.625rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding: 0.625rem;
+            }
+            
+            .auth-card {
+                border-radius: 0.75rem;
+            }
+            
+            .btn-lg {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .background-animation,
+            .notification,
+            .redirect-overlay,
+            .btn {
+                display: none !important;
+            }
+            
+            .auth-card {
+                border: 1px solid #000;
+                box-shadow: none;
+            }
+        }
+        
+        /* High Contrast Mode Support */
+        @media (prefers-contrast: high) {
+            .auth-card {
+                border: 2px solid #000;
+            }
+            
+            .btn-gold {
+                border: 2px solid #000;
+            }
+        }
+        
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            .bg-circle,
+            .auth-card,
+            .btn-gold,
+            .notification,
+            .redirect-spinner {
+                animation: none;
+                transition: none;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Background Animation -->
-    <div class="background-animation">
+    <div class="background-animation" aria-hidden="true">
         <div class="bg-circle"></div>
         <div class="bg-circle"></div>
         <div class="bg-circle"></div>
     </div>
     
     <!-- Notification -->
-    <div class="notification alert alert-light shadow-lg" id="notification">
+    <div class="notification alert alert-light shadow-lg" 
+         id="notification" 
+         role="alert" 
+         aria-live="assertive"
+         aria-atomic="true"
+         aria-label="System Notification">
         <div class="d-flex align-items-center w-100">
-            <div class="me-3" id="notificationIcon">
+            <div class="me-3" id="notificationIcon" aria-hidden="true">
                 <i class="bi bi-check-circle-fill fs-4"></i>
             </div>
             <div class="flex-grow-1">
                 <div class="fw-bold" id="notificationTitle">Success</div>
                 <div id="notificationMessage">Operation completed successfully.</div>
             </div>
-            <button class="btn-close" onclick="hideNotification()"></button>
+            <button class="btn-close" 
+                    onclick="hideNotification()"
+                    aria-label="Close notification"></button>
         </div>
     </div>
     
     <!-- Redirect Overlay -->
-    <div class="redirect-overlay" id="redirectOverlay">
-        <div class="redirect-spinner"></div>
+    <div class="redirect-overlay" id="redirectOverlay" role="dialog" aria-modal="true" aria-labelledby="redirectMessage">
+        <div class="redirect-spinner" role="status" aria-hidden="true"></div>
         <div class="text-white fw-semibold fs-5 mb-2" id="redirectMessage">Mengarahkan ke Halaman Login...</div>
-        <div class="fs-1 fw-bold" id="redirectCountdown" style="background: linear-gradient(135deg, var(--gold-light), var(--gold-primary)); -webkit-background-clip: text; background-clip: text; color: transparent;">3</div>
+        <div class="fs-1 fw-bold" id="redirectCountdown" 
+             style="background: linear-gradient(135deg, var(--gold-light), var(--gold-primary)); -webkit-background-clip: text; background-clip: text; color: transparent;"
+             aria-live="polite">3</div>
     </div>
     
     <!-- Main Container -->
-    <div class="container py-5">
+    <main class="container py-5">
         <div class="row justify-content-center">
             <div class="col-12 text-center mb-5">
-                <h1 class="auth-brand">SIGNAL<span>.</span>IN</h1>
-                <p class="auth-tagline fs-5">Akses Dunia Digitalmu dengan Mudah</p>
+                <h1 class="auth-brand">SIGNAL<span aria-hidden="true">.</span>IN</h1>
+                <p class="auth-tagline">Akses Dunia Digitalmu dengan Mudah</p>
             </div>
             
             <!-- Registration Card -->
@@ -384,78 +509,117 @@
                 <div class="auth-card p-4 p-md-5">
                     <div class="text-center mb-4">
                         <h2 class="fw-bold text-dark">Daftar Akun Baru</h2>
-                        <p class="text-muted">Bergabunglah dengan komunitas <span class="text-primary fw-semibold">Signalin Premium</span></p>
+                        <p class="text-muted">Bergabunglah dengan komunitas <span class="text-primary fw-semibold">Signalin</span> Premium</p>
                     </div>
                     
-                    <form id="registerForm" onsubmit="handleRegister(event)">
+                    <form id="registerForm" novalidate>
                         <div class="mb-3">
-                            <label class="form-label">Nama Lengkap</label>
+                            <label for="regName" class="form-label">Nama Lengkap</label>
                             <div class="input-with-icon">
-                                <i class="bi bi-person input-icon"></i>
-                                <input type="text" class="form-control form-control-lg" id="regName" placeholder="Masukkan nama lengkap" required>
+                                <i class="bi bi-person input-icon" aria-hidden="true"></i>
+                                <input type="text" 
+                                       class="form-control form-control-lg" 
+                                       id="regName" 
+                                       placeholder="Masukkan nama lengkap" 
+                                       required
+                                       aria-describedby="nameHelp">
                             </div>
+                            <div class="invalid-feedback">Mohon isi nama lengkap Anda.</div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Email</label>
+                            <label for="regEmail" class="form-label">Email</label>
                             <div class="input-with-icon">
-                                <i class="bi bi-envelope input-icon"></i>
-                                <input type="email" class="form-control form-control-lg" id="regEmail" placeholder="contoh@email.com" required>
+                                <i class="bi bi-envelope input-icon" aria-hidden="true"></i>
+                                <input type="email" 
+                                       class="form-control form-control-lg" 
+                                       id="regEmail" 
+                                       placeholder="contoh@email.com" 
+                                       required
+                                       aria-describedby="emailHelp">
                             </div>
+                            <div class="invalid-feedback">Mohon masukkan email yang valid.</div>
+                            <div id="emailHelp" class="form-text">Kami tidak akan pernah membagikan email Anda.</div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Nomor Handphone</label>
+                            <label for="regPhone" class="form-label">Nomor Handphone</label>
                             <div class="input-with-icon">
-                                <i class="bi bi-phone input-icon"></i>
-                                <input type="tel" class="form-control form-control-lg" id="regPhone" placeholder="Contoh: 081234567890" required 
-                                       pattern="[0-9]{10,13}" title="Masukkan 10-13 digit angka" 
-                                       oninput="validatePhoneInput(this)">
+                                <i class="bi bi-phone input-icon" aria-hidden="true"></i>
+                                <input type="tel" 
+                                       class="form-control form-control-lg" 
+                                       id="regPhone" 
+                                       placeholder="Contoh: 081234567890" 
+                                       required 
+                                       pattern="[0-9]{10,13}" 
+                                       title="Masukkan 10-13 digit angka"
+                                       aria-describedby="phoneHelp">
                             </div>
-                            <div class="form-text">
+                            <div class="invalid-feedback">Masukkan 10-13 digit angka tanpa spasi atau tanda baca.</div>
+                            <div id="phoneHelp" class="form-text">
                                 Masukkan 10-13 digit angka tanpa spasi atau tanda baca
                             </div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Daerah Asal</label>
+                            <label for="regRegion" class="form-label">Daerah Asal</label>
                             <div class="input-with-icon">
-                                <i class="bi bi-geo-alt input-icon"></i>
-                                <input type="text" class="form-control form-control-lg" id="regRegion" placeholder="Contoh: Jakarta, Bandung, Surabaya, dll" required>
+                                <i class="bi bi-geo-alt input-icon" aria-hidden="true"></i>
+                                <input type="text" 
+                                       class="form-control form-control-lg" 
+                                       id="regRegion" 
+                                       placeholder="Contoh: Jakarta, Bandung, Surabaya, dll" 
+                                       required
+                                       aria-describedby="regionHelp">
                             </div>
-                            <div class="form-text">
+                            <div class="invalid-feedback">Mohon isi daerah asal Anda.</div>
+                            <div id="regionHelp" class="form-text">
                                 Masukkan kota/kabupaten tempat tinggal Anda
                             </div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Password</label>
+                            <label for="regPassword" class="form-label">Password</label>
                             <div class="input-with-icon">
-                                <i class="bi bi-lock input-icon"></i>
-                                <input type="password" class="form-control form-control-lg" id="regPassword" placeholder="Minimal 8 karakter" required>
+                                <i class="bi bi-lock input-icon" aria-hidden="true"></i>
+                                <input type="password" 
+                                       class="form-control form-control-lg" 
+                                       id="regPassword" 
+                                       placeholder="Minimal 8 karakter" 
+                                       required
+                                       minlength="8"
+                                       aria-describedby="passwordHelp">
                             </div>
+                            <div class="invalid-feedback">Password minimal 8 karakter.</div>
+                            <div id="passwordHelp" class="form-text">Gunakan kombinasi huruf, angka, dan simbol untuk keamanan maksimal.</div>
                         </div>
                         
                         <div class="mb-4">
-                            <label class="form-label">Konfirmasi Password</label>
+                            <label for="regConfirmPassword" class="form-label">Konfirmasi Password</label>
                             <div class="input-with-icon">
-                                <i class="bi bi-lock-fill input-icon"></i>
-                                <input type="password" class="form-control form-control-lg" id="regConfirmPassword" placeholder="Ulangi password" required>
+                                <i class="bi bi-lock-fill input-icon" aria-hidden="true"></i>
+                                <input type="password" 
+                                       class="form-control form-control-lg" 
+                                       id="regConfirmPassword" 
+                                       placeholder="Ulangi password" 
+                                       required
+                                       aria-describedby="confirmPasswordHelp">
                             </div>
+                            <div class="invalid-feedback">Password tidak cocok.</div>
                         </div>
                         
                         <button type="submit" class="btn btn-gold w-100 btn-lg mb-3">
-                            <i class="bi bi-person-plus me-2"></i>Daftar Sekarang
+                            <i class="bi bi-person-plus me-2" aria-hidden="true"></i>Daftar Sekarang
                         </button>
                         
-                        <div class="divider">
+                        <div class="divider" role="separator" aria-label="Form Divider">
                             <div class="divider-line"></div>
                             <div class="divider-text">Sudah punya akun?</div>
                             <div class="divider-line"></div>
                         </div>
                         
-                        <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="switchToLogin()">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>Masuk ke Akun
+                        <button type="button" id="switchToLoginBtn" class="btn btn-outline-primary w-100 btn-lg">
+                            <i class="bi bi-box-arrow-in-right me-2" aria-hidden="true"></i>Masuk ke Akun
                         </button>
                     </form>
                 </div>
@@ -466,176 +630,318 @@
                 <div class="auth-card p-4 p-md-5">
                     <div class="text-center mb-4">
                         <h2 class="fw-bold text-dark">Masuk ke Akun</h2>
-                        <p class="text-muted">Selamat datang kembali di <span class="text-primary fw-semibold">Signalin Premium</span>!</p>
+                        <p class="text-muted">Selamat datang kembali di <span class="text-primary fw-semibold">Signalin</span> Premium!</p>
                     </div>
                     
-                    <form id="loginForm" onsubmit="handleLogin(event)">
+                    <form id="loginForm" novalidate>
                         <div class="mb-3">
-                            <label class="form-label">Nomor Handphone</label>
+                            <label for="loginPhone" class="form-label">Nomor Handphone</label>
                             <div class="input-with-icon">
-                                <i class="bi bi-phone input-icon"></i>
-                                <input type="tel" class="form-control form-control-lg" id="loginPhone" placeholder="Contoh: 081234567890" required 
-                                       pattern="[0-9]{10,13}" title="Masukkan 10-13 digit angka">
+                                <i class="bi bi-phone input-icon" aria-hidden="true"></i>
+                                <input type="tel" 
+                                       class="form-control form-control-lg" 
+                                       id="loginPhone" 
+                                       placeholder="Contoh: 081234567890" 
+                                       required 
+                                       pattern="[0-9]{10,13}" 
+                                       title="Masukkan 10-13 digit angka"
+                                       aria-describedby="loginPhoneHelp">
                             </div>
-                            <div class="form-text">
+                            <div class="invalid-feedback">Masukkan 10-13 digit angka tanpa spasi atau tanda baca.</div>
+                            <div id="loginPhoneHelp" class="form-text">
                                 Masukkan nomor handphone yang terdaftar
                             </div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Password</label>
+                            <label for="loginPassword" class="form-label">Password</label>
                             <div class="input-with-icon">
-                                <i class="bi bi-lock input-icon"></i>
-                                <input type="password" class="form-control form-control-lg" id="loginPassword" placeholder="Masukkan password" required>
+                                <i class="bi bi-lock input-icon" aria-hidden="true"></i>
+                                <input type="password" 
+                                       class="form-control form-control-lg" 
+                                       id="loginPassword" 
+                                       placeholder="Masukkan password" 
+                                       required
+                                       aria-describedby="loginPasswordHelp">
                             </div>
+                            <div class="invalid-feedback">Mohon masukkan password Anda.</div>
                         </div>
                         
                         <div class="mb-4 text-end">
-                            <a href="#" class="text-decoration-none text-primary fw-semibold" onclick="showNotification('info', 'Lupa Password', 'Fitur reset password akan segera tersedia.')">
+                            <a href="#" 
+                               class="text-decoration-none text-primary fw-semibold" 
+                               id="forgotPasswordLink"
+                               role="button"
+                               aria-label="Lupa password?">
                                 Lupa Password?
                             </a>
                         </div>
                         
                         <button type="submit" class="btn btn-gold w-100 btn-lg mb-3">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>Masuk ke Akun
+                            <i class="bi bi-box-arrow-in-right me-2" aria-hidden="true"></i>Masuk ke Akun
                         </button>
                         
-                        <div class="divider">
+                        <div class="divider" role="separator" aria-label="Form Divider">
                             <div class="divider-line"></div>
                             <div class="divider-text">Belum punya akun?</div>
                             <div class="divider-line"></div>
                         </div>
                         
-                        <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="switchToRegister()">
-                            <i class="bi bi-person-plus me-2"></i>Daftar Akun Baru
+                        <button type="button" id="switchToRegisterBtn" class="btn btn-outline-primary w-100 btn-lg">
+                            <i class="bi bi-person-plus me-2" aria-hidden="true"></i>Daftar Akun Baru
                         </button>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // ==================== NOTIFICATION SYSTEM ====================
+        // ==================== GLOBAL VARIABLES ====================
         let notificationTimeout;
+        let redirectCountdownInterval;
         
+        // ==================== DOM ELEMENTS ====================
+        const elements = {
+            // Forms
+            registerForm: document.getElementById('registerForm'),
+            loginForm: document.getElementById('loginForm'),
+            
+            // Sections
+            registerSection: document.getElementById('registerSection'),
+            loginSection: document.getElementById('loginSection'),
+            
+            // Buttons
+            switchToLoginBtn: document.getElementById('switchToLoginBtn'),
+            switchToRegisterBtn: document.getElementById('switchToRegisterBtn'),
+            forgotPasswordLink: document.getElementById('forgotPasswordLink'),
+            
+            // Notification
+            notification: document.getElementById('notification'),
+            notificationTitle: document.getElementById('notificationTitle'),
+            notificationMessage: document.getElementById('notificationMessage'),
+            notificationIcon: document.getElementById('notificationIcon'),
+            
+            // Redirect
+            redirectOverlay: document.getElementById('redirectOverlay'),
+            redirectCountdown: document.getElementById('redirectCountdown'),
+            redirectMessage: document.getElementById('redirectMessage')
+        };
+        
+        // ==================== NOTIFICATION SYSTEM ====================
+        /**
+         * Show notification message
+         * @param {string} type - 'success', 'error', or 'info'
+         * @param {string} title - Notification title
+         * @param {string} message - Notification message
+         */
         function showNotification(type, title, message) {
-            const notification = document.getElementById('notification');
-            const notificationTitle = document.getElementById('notificationTitle');
-            const notificationMessage = document.getElementById('notificationMessage');
-            const notificationIcon = document.getElementById('notificationIcon');
+            // Clear any existing timeout
+            clearTimeout(notificationTimeout);
             
-            // Set content
-            notificationTitle.textContent = title;
-            notificationMessage.textContent = message;
+            // Set notification content
+            elements.notificationTitle.textContent = title;
+            elements.notificationMessage.textContent = message;
             
-            // Set type styling
-            notification.className = 'notification alert alert-light shadow-lg';
-            notification.classList.add(type);
-            notification.classList.add('show');
+            // Set notification type and icon
+            elements.notification.className = 'notification alert alert-light shadow-lg';
+            elements.notification.classList.add(type);
             
-            // Set icon based on type
-            let iconClass = '';
+            let iconClass = 'bi-info-circle-fill';
+            let iconColor = 'text-primary';
+            
             switch(type) {
                 case 'success':
-                    iconClass = 'bi-check-circle-fill text-success';
+                    iconClass = 'bi-check-circle-fill';
+                    iconColor = 'text-success';
                     break;
                 case 'error':
-                    iconClass = 'bi-exclamation-circle-fill text-danger';
+                    iconClass = 'bi-exclamation-circle-fill';
+                    iconColor = 'text-danger';
                     break;
                 case 'info':
-                    iconClass = 'bi-info-circle-fill text-primary';
+                    iconClass = 'bi-info-circle-fill';
+                    iconColor = 'text-primary';
                     break;
             }
             
-            notificationIcon.innerHTML = `<i class="bi ${iconClass} fs-4"></i>`;
+            elements.notificationIcon.innerHTML = `<i class="bi ${iconClass} fs-4 ${iconColor}" aria-hidden="true"></i>`;
+            
+            // Show notification with animation
+            setTimeout(() => {
+                elements.notification.classList.add('show');
+                elements.notification.setAttribute('aria-hidden', 'false');
+            }, 10);
             
             // Auto hide after 5 seconds
-            clearTimeout(notificationTimeout);
             notificationTimeout = setTimeout(() => {
                 hideNotification();
             }, 5000);
         }
         
+        /**
+         * Hide notification
+         */
         function hideNotification() {
-            const notification = document.getElementById('notification');
-            notification.classList.remove('show');
+            elements.notification.classList.remove('show');
+            elements.notification.setAttribute('aria-hidden', 'true');
         }
         
         // ==================== REDIRECT SYSTEM ====================
+        /**
+         * Start redirect countdown
+         * @param {string} destination - URL to redirect to
+         * @param {string} message - Message to display
+         */
         function startRedirect(destination, message) {
-            const overlay = document.getElementById('redirectOverlay');
-            const countdownElement = document.getElementById('redirectCountdown');
-            const messageElement = document.getElementById('redirectMessage');
-            
-            let countdown = 3;
+            // Clear any existing interval
+            if (redirectCountdownInterval) {
+                clearInterval(redirectCountdownInterval);
+            }
             
             // Set message
-            messageElement.textContent = message;
+            elements.redirectMessage.textContent = message;
             
             // Show overlay
-            overlay.classList.add('active');
-            countdownElement.textContent = countdown;
+            elements.redirectOverlay.classList.add('active');
+            elements.redirectOverlay.setAttribute('aria-hidden', 'false');
+            
+            let countdown = 3;
+            elements.redirectCountdown.textContent = countdown;
             
             // Update countdown every second
-            const countdownInterval = setInterval(() => {
+            redirectCountdownInterval = setInterval(() => {
                 countdown--;
-                countdownElement.textContent = countdown;
+                elements.redirectCountdown.textContent = countdown;
                 
                 if (countdown <= 0) {
-                    clearInterval(countdownInterval);
+                    clearInterval(redirectCountdownInterval);
                     window.location.href = destination;
                 }
             }, 1000);
         }
         
+        /**
+         * Cancel redirect
+         */
+        function cancelRedirect() {
+            if (redirectCountdownInterval) {
+                clearInterval(redirectCountdownInterval);
+            }
+            elements.redirectOverlay.classList.remove('active');
+            elements.redirectOverlay.setAttribute('aria-hidden', 'true');
+        }
+        
         // ==================== FORM SWITCHING ====================
+        /**
+         * Switch to login form
+         */
         function switchToLogin() {
-            document.getElementById('registerSection').style.display = 'none';
-            document.getElementById('loginSection').style.display = 'block';
+            elements.registerSection.style.display = 'none';
+            elements.loginSection.style.display = 'block';
+            
+            // Update ARIA attributes
+            elements.registerSection.setAttribute('aria-hidden', 'true');
+            elements.loginSection.setAttribute('aria-hidden', 'false');
+            
+            // Focus on first input in login form
+            setTimeout(() => {
+                document.getElementById('loginPhone').focus();
+            }, 300);
+            
+            showNotification('info', 'Form Login', 'Silakan masukkan kredensial Anda');
         }
         
+        /**
+         * Switch to register form
+         */
         function switchToRegister() {
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('registerSection').style.display = 'block';
+            elements.loginSection.style.display = 'none';
+            elements.registerSection.style.display = 'block';
+            
+            // Update ARIA attributes
+            elements.loginSection.setAttribute('aria-hidden', 'true');
+            elements.registerSection.setAttribute('aria-hidden', 'false');
+            
+            // Focus on first input in register form
+            setTimeout(() => {
+                document.getElementById('regName').focus();
+            }, 300);
+            
+            showNotification('info', 'Form Registrasi', 'Silakan isi data diri Anda');
         }
         
-        // ==================== FORM VALIDATION ====================
+        // ==================== VALIDATION FUNCTIONS ====================
+        /**
+         * Validate email format
+         * @param {string} email - Email to validate
+         * @returns {boolean}
+         */
         function validateEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         }
         
+        /**
+         * Validate phone number format
+         * @param {string} phone - Phone number to validate
+         * @returns {boolean}
+         */
         function validatePhone(phone) {
             const re = /^[0-9]{10,13}$/;
             return re.test(phone);
         }
         
+        /**
+         * Validate password length
+         * @param {string} password - Password to validate
+         * @returns {boolean}
+         */
         function validatePassword(password) {
             return password.length >= 8;
         }
         
-        // ==================== PHONE INPUT VALIDATION ====================
-        function validatePhoneInput(input) {
-            // Hanya menerima angka
+        /**
+         * Sanitize phone input
+         * @param {HTMLInputElement} input - Phone input element
+         */
+        function sanitizePhoneInput(input) {
             input.value = input.value.replace(/\D/g, '');
             
-            // Validasi panjang
-            const phone = input.value;
-            if (phone.length > 0 && (phone.length < 10 || phone.length > 13)) {
-                input.classList.add('is-invalid');
+            if (input.value.length > 0) {
+                if (validatePhone(input.value)) {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                    input.setAttribute('aria-invalid', 'false');
+                } else {
+                    input.classList.remove('is-valid');
+                    input.classList.add('is-invalid');
+                    input.setAttribute('aria-invalid', 'true');
+                }
             } else {
-                input.classList.remove('is-invalid');
-                input.classList.add('is-valid');
+                input.classList.remove('is-valid', 'is-invalid');
+                input.removeAttribute('aria-invalid');
             }
         }
         
-        // ==================== REGISTER HANDLER ====================
+        // ==================== FORM HANDLERS ====================
+        /**
+         * Handle register form submission
+         * @param {Event} e - Form submit event
+         */
         async function handleRegister(e) {
             e.preventDefault();
+            
+            // Check form validity
+            if (!elements.registerForm.checkValidity()) {
+                e.stopPropagation();
+                elements.registerForm.classList.add('was-validated');
+                showNotification('error', 'Error Validasi', 'Harap periksa kembali form Anda');
+                return;
+            }
             
             // Get form values
             const name = document.getElementById('regName').value.trim();
@@ -645,38 +951,38 @@
             const password = document.getElementById('regPassword').value;
             const confirmPassword = document.getElementById('regConfirmPassword').value;
             
-            // Validation
-            if (!name) {
-                showNotification('error', 'Error Registrasi', 'Nama lengkap harus diisi.');
-                return;
-            }
-            
+            // Additional validations
             if (!validateEmail(email)) {
-                showNotification('error', 'Error Registrasi', 'Format email tidak valid.');
+                document.getElementById('regEmail').classList.add('is-invalid');
+                showNotification('error', 'Error Registrasi', 'Format email tidak valid');
                 return;
             }
             
             if (!validatePhone(phone)) {
-                showNotification('error', 'Error Registrasi', 'Nomor HP harus 10-13 digit angka tanpa spasi.');
-                return;
-            }
-            
-            if (!region) {
-                showNotification('error', 'Error Registrasi', 'Daerah asal harus diisi.');
+                document.getElementById('regPhone').classList.add('is-invalid');
+                showNotification('error', 'Error Registrasi', 'Nomor HP harus 10-13 digit angka');
                 return;
             }
             
             if (!validatePassword(password)) {
-                showNotification('error', 'Error Registrasi', 'Password minimal 8 karakter.');
+                document.getElementById('regPassword').classList.add('is-invalid');
+                showNotification('error', 'Error Registrasi', 'Password minimal 8 karakter');
                 return;
             }
             
             if (password !== confirmPassword) {
-                showNotification('error', 'Error Registrasi', 'Konfirmasi password tidak cocok.');
+                document.getElementById('regConfirmPassword').classList.add('is-invalid');
+                showNotification('error', 'Error Registrasi', 'Konfirmasi password tidak cocok');
                 return;
             }
             
             try {
+                // Show loading state
+                const submitBtn = elements.registerForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Mendaftarkan...';
+                submitBtn.disabled = true;
+                
                 // Send data to Google Sheets (Web App URL)
                 const webAppUrl = 'https://script.google.com/macros/s/AKfycby7lJhRQ1Xs-D30SEzsiphkNfOV2p2Bjbnr9z1OXG8y20VxOx-nIlL2UrlEn4GKF1WMlg/exec';
                 
@@ -687,100 +993,107 @@
                 formData.append('region', region);
                 formData.append('password', password);
                 formData.append('timestamp', new Date().toISOString());
+                formData.append('source', 'web_registration');
                 
-                // Kirim data ke Google Sheets
+                // Send data to Google Sheets
                 const response = await fetch(webAppUrl, {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    mode: 'no-cors' // Untuk Google Apps Script
                 });
                 
-                if (response.ok) {
-                    // Simpan data di localStorage untuk login
-                    localStorage.setItem('user_name', name);
-                    localStorage.setItem('user_email', email);
-                    localStorage.setItem('user_phone', phone);
-                    localStorage.setItem('user_region', region);
-                    localStorage.setItem('user_password', password);
-                    localStorage.setItem('isRegistered', 'true');
-                    
-                    // Set join date
-                    const now = new Date();
-                    const joinDate = now.toLocaleDateString('id-ID', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric'
-                    });
-                    localStorage.setItem('user_joinDate', joinDate);
-                    
-                    // Set default balance
-                    const defaultBalance = 50000;
-                    localStorage.setItem('user_balance', defaultBalance);
-                    
-                    // Initialize purchase history
-                    localStorage.setItem('user_purchaseHistory', JSON.stringify([]));
-                    localStorage.setItem('user_dataPackages', JSON.stringify([]));
-                    localStorage.setItem('user_phoneCredit', '0');
-                    
-                    // Show success notification
-                    showNotification('success', 'Registrasi Berhasil!', `Akun ${name} berhasil dibuat! Data telah dikirim ke spreadsheet.`);
-                    
-                    // Clear form
-                    document.getElementById('registerForm').reset();
-                    
-                    // Switch to login after 3 seconds
-                    setTimeout(() => {
-                        showNotification('info', 'Beralih ke Login', 'Silakan login dengan nomor HP dan password Anda.');
-                        switchToLogin();
-                    }, 3000);
-                    
-                } else {
-                    throw new Error('Gagal mengirim data ke spreadsheet');
-                }
+                // Save to localStorage
+                saveUserToLocalStorage({
+                    name,
+                    email,
+                    phone,
+                    region,
+                    password
+                });
+                
+                // Show success message
+                showNotification('success', 'Registrasi Berhasil!', `Akun ${name} berhasil dibuat!`);
+                
+                // Reset form
+                elements.registerForm.reset();
+                elements.registerForm.classList.remove('was-validated');
+                
+                // Switch to login after delay
+                setTimeout(() => {
+                    switchToLogin();
+                }, 2000);
                 
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Registration error:', error);
+                
                 // Fallback: save to localStorage only
-                localStorage.setItem('user_name', name);
-                localStorage.setItem('user_email', email);
-                localStorage.setItem('user_phone', phone);
-                localStorage.setItem('user_region', region);
-                localStorage.setItem('user_password', password);
-                localStorage.setItem('isRegistered', 'true');
-                
-                // Set join date
-                const now = new Date();
-                const joinDate = now.toLocaleDateString('id-ID', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
+                saveUserToLocalStorage({
+                    name,
+                    email,
+                    phone,
+                    region,
+                    password
                 });
-                localStorage.setItem('user_joinDate', joinDate);
-                
-                // Set default balance
-                const defaultBalance = 50000;
-                localStorage.setItem('user_balance', defaultBalance);
-                
-                // Initialize purchase history
-                localStorage.setItem('user_purchaseHistory', JSON.stringify([]));
-                localStorage.setItem('user_dataPackages', JSON.stringify([]));
-                localStorage.setItem('user_phoneCredit', '0');
                 
                 showNotification('success', 'Registrasi Berhasil!', `Akun ${name} berhasil dibuat! (Data disimpan lokal)`);
                 
-                // Clear form
-                document.getElementById('registerForm').reset();
+                // Reset form
+                elements.registerForm.reset();
+                elements.registerForm.classList.remove('was-validated');
                 
-                // Switch to login after 3 seconds
+                // Switch to login after delay
                 setTimeout(() => {
-                    showNotification('info', 'Beralih ke Login', 'Silakan login dengan nomor HP dan password Anda.');
                     switchToLogin();
-                }, 3000);
+                }, 2000);
+                
+            } finally {
+                // Reset button state
+                const submitBtn = elements.registerForm.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         }
         
-        // ==================== LOGIN HANDLER ====================
+        /**
+         * Save user data to localStorage
+         * @param {Object} userData - User data object
+         */
+        function saveUserToLocalStorage(userData) {
+            const now = new Date();
+            const joinDate = now.toLocaleDateString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            localStorage.setItem('user_name', userData.name);
+            localStorage.setItem('user_email', userData.email);
+            localStorage.setItem('user_phone', userData.phone);
+            localStorage.setItem('user_region', userData.region);
+            localStorage.setItem('user_password', userData.password);
+            localStorage.setItem('isRegistered', 'true');
+            localStorage.setItem('user_joinDate', joinDate);
+            localStorage.setItem('user_balance', '50000');
+            localStorage.setItem('user_purchase_history', JSON.stringify([]));
+            localStorage.setItem('user_dataPackages', JSON.stringify([]));
+            localStorage.setItem('user_phoneCredit', '0');
+            localStorage.setItem('user_isNewAccount', 'true');
+        }
+        
+        /**
+         * Handle login form submission
+         * @param {Event} e - Form submit event
+         */
         function handleLogin(e) {
             e.preventDefault();
+            
+            // Check form validity
+            if (!elements.loginForm.checkValidity()) {
+                e.stopPropagation();
+                elements.loginForm.classList.add('was-validated');
+                showNotification('error', 'Error Validasi', 'Harap periksa kembali form Anda');
+                return;
+            }
             
             const phone = document.getElementById('loginPhone').value;
             const password = document.getElementById('loginPassword').value;
@@ -788,7 +1101,7 @@
             // Check if user is registered
             const isRegistered = localStorage.getItem('isRegistered');
             if (!isRegistered || isRegistered !== 'true') {
-                showNotification('error', 'Login Gagal', 'Silakan registrasi terlebih dahulu.');
+                showNotification('error', 'Login Gagal', 'Silakan registrasi terlebih dahulu');
                 return;
             }
             
@@ -797,37 +1110,164 @@
             const storedPassword = localStorage.getItem('user_password');
             const storedName = localStorage.getItem('user_name');
             
-            // Check credentials
+            // Validate credentials
             if (phone === storedPhone && password === storedPassword) {
                 // Set login status
                 localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('lastLogin', new Date().toISOString());
                 
-                // Show success notification
+                // Clear the new account flag when logging in (account is no longer new)
+                localStorage.setItem('user_isNewAccount', 'false');
+                
+                // Show success
                 showNotification('success', 'Login Berhasil!', `Selamat datang kembali, ${storedName || 'Pengguna'}!`);
                 
-                // Redirect to home page after 2 seconds
+                // Redirect to home page
                 setTimeout(() => {
                     startRedirect('home.html', 'Mengarahkan ke Beranda...');
-                }, 2000);
+                }, 1500);
+                
             } else {
-                showNotification('error', 'Login Gagal', 'Nomor HP atau password salah.');
+                showNotification('error', 'Login Gagal', 'Nomor HP atau password salah');
+                document.getElementById('loginPhone').classList.add('is-invalid');
+                document.getElementById('loginPassword').classList.add('is-invalid');
             }
         }
         
+        /**
+         * Handle forgot password
+         */
+        function handleForgotPassword() {
+            showNotification('info', 'Lupa Password', 'Fitur reset password akan segera tersedia. Silakan hubungi admin.');
+            
+            // Optional: Focus on email input for password reset
+            setTimeout(() => {
+                if (elements.registerSection.style.display !== 'none') {
+                    document.getElementById('regEmail').focus();
+                }
+            }, 1000);
+        }
+        
+        // ==================== EVENT LISTENERS ====================
+        /**
+         * Initialize all event listeners
+         */
+        function initializeEventListeners() {
+            // Form submissions
+            if (elements.registerForm) {
+                elements.registerForm.addEventListener('submit', handleRegister);
+            }
+            
+            if (elements.loginForm) {
+                elements.loginForm.addEventListener('submit', handleLogin);
+            }
+            
+            // Form switching
+            if (elements.switchToLoginBtn) {
+                elements.switchToLoginBtn.addEventListener('click', switchToLogin);
+            }
+            
+            if (elements.switchToRegisterBtn) {
+                elements.switchToRegisterBtn.addEventListener('click', switchToRegister);
+            }
+            
+            // Forgot password
+            if (elements.forgotPasswordLink) {
+                elements.forgotPasswordLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    handleForgotPassword();
+                });
+            }
+            
+            // Phone input sanitization
+            const phoneInputs = document.querySelectorAll('input[type="tel"]');
+            phoneInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    sanitizePhoneInput(this);
+                });
+                
+                input.addEventListener('blur', function() {
+                    sanitizePhoneInput(this);
+                });
+            });
+            
+            // Real-time password validation
+            const passwordInput = document.getElementById('regPassword');
+            const confirmPasswordInput = document.getElementById('regConfirmPassword');
+            
+            if (passwordInput && confirmPasswordInput) {
+                confirmPasswordInput.addEventListener('input', function() {
+                    const password = passwordInput.value;
+                    const confirmPassword = this.value;
+                    
+                    if (confirmPassword && password !== confirmPassword) {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                        this.setAttribute('aria-invalid', 'true');
+                    } else if (confirmPassword) {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                        this.setAttribute('aria-invalid', 'false');
+                    } else {
+                        this.classList.remove('is-invalid', 'is-valid');
+                        this.removeAttribute('aria-invalid');
+                    }
+                });
+            }
+            
+            // Form input validation on blur
+            const formInputs = document.querySelectorAll('.form-control');
+            formInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value.trim() !== '' && this.checkValidity()) {
+                        this.classList.add('is-valid');
+                        this.classList.remove('is-invalid');
+                        this.setAttribute('aria-invalid', 'false');
+                    } else if (this.value.trim() === '') {
+                        this.classList.remove('is-valid', 'is-invalid');
+                        this.removeAttribute('aria-invalid');
+                    }
+                });
+            });
+            
+            // Close notification on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    hideNotification();
+                    cancelRedirect();
+                }
+            });
+            
+            // Close notification on click outside (optional)
+            document.addEventListener('click', (e) => {
+                if (!elements.notification.contains(e.target) && 
+                    elements.notification.classList.contains('show')) {
+                    hideNotification();
+                }
+            });
+        }
+        
         // ==================== INITIALIZATION ====================
-        document.addEventListener('DOMContentLoaded', function() {
+        /**
+         * Initialize the application
+         */
+        function initializeApp() {
             // Check if user is already logged in
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             if (isLoggedIn === 'true') {
-                // If already logged in, redirect to home
+                // Redirect to home if already logged in
                 window.location.href = 'home.html';
+                return;
             }
             
-            // Check if redirected from registration
+            // Check URL parameters for action
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('action') === 'login') {
                 switchToLogin();
             }
+            
+            // Initialize event listeners
+            initializeEventListeners();
             
             // Auto-focus on first input
             setTimeout(() => {
@@ -837,83 +1277,41 @@
                 }
             }, 300);
             
-            // Auto-remove non-digit characters from phone inputs
-            const phoneInputs = document.querySelectorAll('input[type="tel"]');
-            phoneInputs.forEach(input => {
-                input.addEventListener('input', function(e) {
-                    this.value = this.value.replace(/\D/g, '');
-                });
-            });
+            // Check for prefers-reduced-motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.documentElement.style.setProperty('--transition-base', 'none');
+            }
             
-            // Add Bootstrap validation classes on input
-            const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach(input => {
-                input.addEventListener('blur', function() {
-                    if (this.value.trim() !== '') {
-                        this.classList.add('is-valid');
-                    } else {
-                        this.classList.remove('is-valid');
-                    }
+            // Service Worker Registration (optional)
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js').catch(error => {
+                        console.log('ServiceWorker registration failed:', error);
+                    });
                 });
-            });
-        });
+            }
+        }
         
-        // Auto-hide notification on ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                hideNotification();
+        // ==================== ENTRY POINT ====================
+        // Start the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                // Page became visible again
+                console.log('Page is now visible');
             }
         });
         
-        // Validasi input hanya angka untuk nomor handphone
-        document.getElementById('regPhone')?.addEventListener('input', function(e) {
-            this.value = this.value.replace(/\D/g, '');
+        // Handle offline/online status
+        window.addEventListener('online', () => {
+            showNotification('success', 'Koneksi Pulih', 'Anda kembali online');
         });
         
-        document.getElementById('loginPhone')?.addEventListener('input', function(e) {
-            this.value = this.value.replace(/\D/g, '');
+        window.addEventListener('offline', () => {
+            showNotification('warning', 'Koneksi Terputus', 'Anda sedang offline. Beberapa fitur mungkin tidak tersedia.');
         });
     </script>
-    
-    <!-- Google Apps Script Web App Integration -->
-    <!-- 
-    Untuk menggunakan Google Sheets integration:
-    1. Buat spreadsheet baru di Google Sheets
-    2. Buka Tools → Script editor
-    3. Tempel kode berikut:
-    
-    function doPost(e) {
-        try {
-            var sheet = SpreadsheetApp.openById('YOUR_SPREADSHEET_ID').getActiveSheet();
-            
-            // Ambil data dari request
-            var data = e.parameter;
-            
-            var row = [
-                new Date(),
-                data.name || '',
-                data.email || '',
-                data.phone || '',
-                data.region || '',
-                data.timestamp || '',
-                'REGISTERED'
-            ];
-            
-            sheet.appendRow(row);
-            
-            return ContentService
-                .createTextOutput(JSON.stringify({success: true, message: 'Data saved successfully'}))
-                .setMimeType(ContentService.MimeType.JSON);
-        } catch(error) {
-            return ContentService
-                .createTextOutput(JSON.stringify({success: false, message: error.toString()}))
-                .setMimeType(ContentService.MimeType.JSON);
-        }
-    }
-    
-    4. Ganti 'YOUR_SPREADSHEET_ID' dengan ID spreadsheet Anda
-    5. Deploy sebagai Web App (Execute as: Me, Who has access: Anyone)
-    6. Copy URL Web App dan ganti di kode JavaScript di atas
-    -->
 </body>
 </html>

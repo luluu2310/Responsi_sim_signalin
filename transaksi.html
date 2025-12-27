@@ -1413,11 +1413,12 @@
             // Setup event listeners
             setupEventListeners();
             
-            // Check if there are demo transactions
-            const transactionHistory = JSON.parse(localStorage.getItem('user_purchase_history') || '[]');
-            if (transactionHistory.length === 0) {
-                // Initialize demo data if empty
-                initializeDemoTransactions();
+            // Check if user is a new account and show info message
+            const isNewAccount = localStorage.getItem('user_isNewAccount');
+            if (isNewAccount === 'true') {
+                showNotificationToast('info', 'Akun Baru', 'Belum ada riwayat transaksi. Mulai dengan melakukan pembelian paket!');
+                // Clear the flag after showing once
+                localStorage.setItem('user_isNewAccount', 'false');
             }
         });
         
