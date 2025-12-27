@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signalin - Riwayat Transaksi</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==================== ROOT VARIABLES ==================== */
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --primary-gray-light: #1A1A1A;
+            --primary-gray: #2D2D2D;
+            --primary-gray-dark: #121212;
+            --accent-gold: #D4AF37;
+            --accent-gold-dark: #B8860B;
+            --accent-gold-light: #FFD700;
+            --accent-gold-glow: rgba(212, 175, 55, 0.3);
+            --text-main: #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --text-dim: #808080;
+            --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.5);
+            --shadow-dark: 0 15px 35px rgba(0, 0, 0, 0.7);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 24px;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--primary-black);
+            color: var(--text-main);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        /* ==================== CUSTOM NAVBAR ==================== */
+        .navbar-custom {
+            background: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            min-height: 80px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all var(--transition-normal);
+        }
+        
+        .navbar-custom.scrolled {
+            min-height: 70px;
+            box-shadow: var(--shadow-medium);
+            background: rgba(18, 18, 18, 0.98) !important;
+        }
+        
+        .navbar-brand-custom {
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 2.2rem;
+            color: transparent;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-gold-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            transition: all var(--transition-normal);
+        }
+        
+        .navbar-brand-custom:hover {
+            transform: scale(1.05);
+            text-shadow: 0 5px 15px var(--accent-gold-glow);
+        }
+        
+        /* Balance Display */
+        .balance-display-custom {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+            color: var(--primary-black);
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            min-width: 150px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transition-normal);
+            padding: 8px 16px;
+        }
+        
+        .balance-display-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-btn-custom {
+            color: var(--accent-gold);
+            background: var(--primary-gray);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+        
+        .mobile-menu-btn-custom:hover {
+            background: var(--accent-gold);
+            color: var(--primary-black);
+            transform: scale(1.05);
+        }
+        
+        /* Profile Menu */
+        .profile-menu-custom {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-light);
+            transition: all var(--transition-normal);
+            overflow: hidden;
+            position: relative;
+            text-decoration: none;
+        }
+        
+        .profile-menu-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform var(--transition-normal);
+        }
+        
+        .profile-menu-custom:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .profile-menu-custom:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* ==================== SIDEBAR MOBILE ==================== */
+        .sidebar-custom {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 320px;
+            height: 100%;
+            background: var(--primary-gray-dark);
+            z-index: 1100;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+        }
+        
+        .sidebar-custom.show {
+            left: 0;
+        }
+        
+        .sidebar-header-custom {
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 30px 30px 20px;
+        }
+        
+        .sidebar-title-custom {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: transparent;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-gold-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        
+        .sidebar-menu-custom {
+            padding: 20px 30px;
+        }
+        
+        .sidebar-menu-link-custom {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all var(--transition-fast);
+        }
+        
+        .sidebar-menu-link-custom:hover, .sidebar-menu-link-custom.active {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+            color: var(--primary-black);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-logout-btn-custom {
+            background: linear-gradient(135deg, var(--primary-gray), #3a3a3a);
+            color: var(--accent-gold);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            padding: 16px 20px;
+            transition: all var(--transition-normal);
+            width: calc(100% - 60px);
+            margin: 20px 30px 30px;
+        }
+        
+        .sidebar-logout-btn-custom:hover {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+            color: var(--primary-black);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* ==================== LOADING OVERLAY ==================== */
+        .loading-overlay-custom {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .loading-overlay-custom.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .loading-spinner-custom {
+            width: 70px;
+            height: 70px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ==================== PAGE HEADER ==================== */
+        .page-header-custom {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .page-title-custom {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-gold-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title-custom::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 2px;
+        }
+        
+        .page-description-custom {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* ==================== STATISTICS CARDS ==================== */
+        .stats-card-custom {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow-medium);
+            transition: all var(--transition-normal);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .stats-card-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
+        }
+        
+        .stats-card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-dark);
+            border-color: var(--accent-gold);
+        }
+        
+        .stats-card-custom.total::before {
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
+        }
+        
+        .stats-card-custom.success::before {
+            background: linear-gradient(90deg, #00b894, #00a085);
+        }
+        
+        .stats-card-custom.pending::before {
+            background: linear-gradient(90deg, #fdcb6e, #e17055);
+        }
+        
+        .stats-card-custom.failed::before {
+            background: linear-gradient(90deg, #e17055, #d63031);
+        }
+        
+        .stat-icon-custom {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .stats-card-custom.total .stat-icon-custom {
+            color: var(--accent-gold);
+        }
+        
+        .stats-card-custom.success .stat-icon-custom {
+            color: #00b894;
+        }
+        
+        .stats-card-custom.pending .stat-icon-custom {
+            color: #fdcb6e;
+        }
+        
+        .stats-card-custom.failed .stat-icon-custom {
+            color: #e17055;
+        }
+        
+        .stat-value-custom {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 10px 0;
+            color: var(--text-main);
+        }
+        
+        .stat-label-custom {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        /* ==================== FILTER SECTION ==================== */
+        .filter-card-custom {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .filter-title-custom {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-select-custom, .filter-input-custom {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--white);
+            transition: all var(--transition-fast);
+        }
+        
+        .filter-select-custom:focus, .filter-input-custom:focus {
+            border-color: var(--accent-gold);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* BUTTONS CUSTOM */
+        .btn-filter-apply-custom {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+            color: var(--primary-black);
+            border: none;
+            padding: 14px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid var(--accent-gold-light);
+        }
+        
+        .btn-filter-apply-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-filter-reset-custom {
+            background: var(--primary-gray);
+            color: var(--text-main);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 14px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-filter-reset-custom:hover {
+            background: var(--primary-gray-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-export-custom {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+            color: var(--primary-black);
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid var(--accent-gold-light);
+        }
+        
+        .btn-export-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-refresh-custom {
+            background: linear-gradient(135deg, #4285F4, #0F9D58);
+            color: var(--primary-white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid #4285F4;
+        }
+        
+        .btn-refresh-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.3);
+        }
+        
+        /* ==================== TRANSACTIONS SECTION ==================== */
+        .transactions-card-custom {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .transactions-title-custom {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* TABLE CUSTOM */
+        .table-transactions-custom {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            color: var(--text-main);
+        }
+        
+        .table-transactions-custom thead {
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .table-transactions-custom th {
+            text-align: left;
+            padding: 18px 20px;
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            white-space: nowrap;
+        }
+        
+        .table-transactions-custom th:first-child {
+            border-radius: var(--border-radius) 0 0 0;
+        }
+        
+        .table-transactions-custom th:last-child {
+            border-radius: 0 var(--border-radius) 0 0;
+        }
+        
+        .table-transactions-custom td {
+            padding: 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            vertical-align: middle;
+            color: var(--text-main);
+        }
+        
+        .table-transactions-custom tbody tr:hover td {
+            background: rgba(212, 175, 55, 0.05);
+        }
+        
+        .table-transactions-custom tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* TRANSACTION BADGES */
+        .transaction-id-custom {
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .transaction-type-badge-custom {
+            display: inline-flex;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .type-pulsa-custom {
+            background: rgba(108, 92, 231, 0.2);
+            color: #a29bfe;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+        
+        .type-streaming-custom {
+            background: rgba(0, 184, 148, 0.2);
+            color: #81ecec;
+            border: 1px solid rgba(0, 184, 148, 0.3);
+        }
+        
+        .type-topup-custom {
+            background: rgba(253, 203, 110, 0.2);
+            color: #ffeaa7;
+            border: 1px solid rgba(253, 203, 110, 0.3);
+        }
+        
+        .type-data-custom {
+            background: rgba(116, 185, 255, 0.2);
+            color: #74b9ff;
+            border: 1px solid rgba(116, 185, 255, 0.3);
+        }
+        
+        .type-nonton-custom {
+            background: rgba(225, 112, 85, 0.2);
+            color: #fab1a0;
+            border: 1px solid rgba(225, 112, 85, 0.3);
+        }
+        
+        .type-wifi-custom {
+            background: rgba(0, 206, 201, 0.2);
+            color: #55efc4;
+            border: 1px solid rgba(0, 206, 201, 0.3);
+        }
+        
+        .transaction-description-custom {
+            color: var(--text-main);
+            font-weight: 600;
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .transaction-details-custom {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .transaction-date-custom {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+        
+        .transaction-amount-custom {
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        
+        .amount-positive-custom {
+            color: #00b894;
+        }
+        
+        .amount-negative-custom {
+            color: #e17055;
+        }
+        
+        /* STATUS BADGES */
+        .transaction-status-badge-custom {
+            display: inline-flex;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .status-success-custom {
+            background: rgba(0, 184, 148, 0.2);
+            color: #00b894;
+            border: 1px solid rgba(0, 184, 148, 0.3);
+        }
+        
+        .status-pending-custom {
+            background: rgba(253, 203, 110, 0.2);
+            color: #fdcb6e;
+            border: 1px solid rgba(253, 203, 110, 0.3);
+        }
+        
+        .status-failed-custom {
+            background: rgba(225, 112, 85, 0.2);
+            color: #e17055;
+            border: 1px solid rgba(225, 112, 85, 0.3);
+        }
+        
+        /* ACTION BUTTONS */
+        .action-button-custom {
+            padding: 10px 18px;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-size: 0.9rem;
+        }
+        
+        .action-button-custom:hover {
+            background: var(--accent-gold);
+            color: var(--primary-black);
+            transform: translateY(-2px);
+        }
+        
+        /* ==================== PAGINATION ==================== */
+        .pagination-custom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+        
+        .pagination-button-custom {
+            padding: 12px 20px;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--text-main);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: 600;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .pagination-button-custom:hover:not(:disabled) {
+            background: var(--accent-gold);
+            color: var(--primary-black);
+            transform: translateY(-2px);
+        }
+        
+        .pagination-button-custom.active {
+            background: var(--accent-gold);
+            color: var(--primary-black);
+            border-color: var(--accent-gold);
+        }
+        
+        .pagination-button-custom:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* ==================== EMPTY STATE ==================== */
+        .empty-state-custom {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: var(--border-radius);
+            border: 2px dashed rgba(212, 175, 55, 0.3);
+            margin: 30px 0;
+        }
+        
+        .empty-state-icon-custom {
+            font-size: 4rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        
+        .empty-state-custom h3 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+        
+        .empty-state-custom p {
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 25px;
+            line-height: 1.6;
+        }
+        
+        .empty-state-button-custom {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+            color: var(--primary-black);
+            border: none;
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .empty-state-button-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* ==================== NOTIFICATION ==================== */
+        .notification-custom {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--accent-gold-dark), var(--accent-gold));
+            color: var(--primary-black);
+            padding: 20px 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-dark);
+            display: none;
+            z-index: 1001;
+            max-width: 400px;
+            animation: slideIn 0.5s ease;
+            border: 2px solid var(--accent-gold-light);
+            font-weight: 600;
+        }
+        
+        .notification-custom.error {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: var(--primary-white);
+        }
+        
+        .notification-custom.success {
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: var(--primary-white);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Balance low warning animation */
+        @keyframes pulseGold {
+            0% { box-shadow: 0 4px 6px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 4px 20px rgba(212, 175, 55, 0.7); }
+            100% { box-shadow: 0 4px 6px rgba(212, 175, 55, 0.3); }
+        }
+        
+        /* ==================== RESPONSIVE STYLES ==================== */
+        @media (max-width: 1024px) {
+            .navbar-brand-custom {
+                font-size: 1.8rem;
+            }
+            
+            .page-title-custom {
+                font-size: 2.5rem;
+            }
+            
+            .balance-display-custom {
+                min-width: 130px;
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+            
+            .stat-value-custom {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title-custom {
+                font-size: 2rem;
+            }
+            
+            .navbar-brand-custom {
+                font-size: 1.5rem;
+            }
+            
+            .balance-display-custom {
+                display: none;
+            }
+            
+            .page-description-custom {
+                font-size: 1rem;
+            }
+            
+            .stat-value-custom {
+                font-size: 1.8rem;
+            }
+            
+            .table-transactions-custom th,
+            .table-transactions-custom td {
+                padding: 12px 15px;
+            }
+            
+            .action-button-custom {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .navbar-brand-custom {
+                font-size: 1.6rem;
+            }
+            
+            .page-title-custom {
+                font-size: 1.8rem;
+            }
+            
+            .pagination-custom {
+                flex-wrap: wrap;
+            }
+            
+            .pagination-button-custom {
+                padding: 10px 15px;
+                min-width: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR MOBILE -->
+    <div class="offcanvas offcanvas-start sidebar-custom" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+        <div class="offcanvas-header sidebar-header-custom">
+            <h5 class="offcanvas-title sidebar-title-custom" id="mobileSidebarLabel">Menu</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+            <div class="sidebar-menu-custom">
+                <a href="home.html" class="sidebar-menu-link-custom mb-2">
+                    <i class="bi bi-house"></i> Home
+                </a>
+                <a href="pulsa.html" class="sidebar-menu-link-custom mb-2">
+                    <i class="bi bi-phone"></i> Pulsa
+                </a>
+                <a href="internet.html" class="sidebar-menu-link-custom mb-2">
+                    <i class="bi bi-wifi"></i> Paket Data
+                </a>
+                <a href="streaming.html" class="sidebar-menu-link-custom mb-2">
+                    <i class="bi bi-play-circle"></i> Streaming
+                </a>
+                <a href="nonton.html" class="sidebar-menu-link-custom mb-2">
+                    <i class="bi bi-tv"></i> Nonton
+                </a>
+                <a href="wifi.html" class="sidebar-menu-link-custom mb-2">
+                    <i class="bi bi-router"></i> Layanan Wifi
+                </a>
+                <a href="riwayat.html" class="sidebar-menu-link-custom mb-2 active">
+                    <i class="bi bi-clock-history"></i> Riwayat Top Up
+                </a>
+                <a href="transaksi.html" class="sidebar-menu-link-custom mb-2">
+                    <i class="bi bi-receipt"></i> Riwayat Transaksi
+                </a>
+                <a href="help.html" class="sidebar-menu-link-custom">
+                    <i class="bi bi-question-circle"></i> Bantuan
+                </a>
+            </div>
+            <button class="sidebar-logout-btn-custom" onclick="logout()">
+                <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom" id="navbar">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center">
+                <button class="mobile-menu-btn-custom me-3" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                    <i class="bi bi-list"></i>
+                </button>
+                <a href="profile.html" class="profile-menu-custom" title="Profil">
+                    <i class="bi bi-person"></i>
+                </a>
+            </div>
+            
+            <div class="navbar-brand navbar-brand-custom mx-auto">
+                Signalin
+            </div>
+            
+            <div class="d-flex align-items-center">
+                <div class="balance-display-custom d-none d-lg-flex" id="navbarBalance">
+                    <i class="bi bi-wallet"></i>
+                    <span id="balanceAmount">Saldo: Rp 328.500</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay-custom" id="loadingOverlay">
+        <div class="d-flex justify-content-center align-items-center w-100">
+            <div class="loading-spinner-custom"></div>
+        </div>
+    </div>
+    
+    <!-- NOTIFICATION -->
+    <div id="notification" class="notification-custom"></div>
+    
+    <div class="container my-4">
+        <!-- PAGE HEADER -->
+        <div class="page-header-custom mb-5">
+            <h1 class="page-title-custom">Riwayat Transaksi</h1>
+            <p class="page-description-custom">
+                Lacak semua transaksi pembelian dan top up Anda. Semua riwayat transaksi disimpan secara lokal di browser Anda.
+            </p>
+        </div>
+        
+        <!-- STATISTICS -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-3 col-sm-6">
+                <div class="stats-card-custom total">
+                    <div class="stat-icon-custom"><i class="bi bi-graph-up"></i></div>
+                    <div class="stat-value-custom" id="totalTransactions">0</div>
+                    <div class="stat-label-custom">Total Transaksi</div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="stats-card-custom success">
+                    <div class="stat-icon-custom"><i class="bi bi-check-circle"></i></div>
+                    <div class="stat-value-custom" id="successTransactions">0</div>
+                    <div class="stat-label-custom">Berhasil</div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="stats-card-custom pending">
+                    <div class="stat-icon-custom"><i class="bi bi-clock"></i></div>
+                    <div class="stat-value-custom" id="pendingTransactions">0</div>
+                    <div class="stat-label-custom">Pending</div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="stats-card-custom failed">
+                    <div class="stat-icon-custom"><i class="bi bi-x-circle"></i></div>
+                    <div class="stat-value-custom" id="failedTransactions">0</div>
+                    <div class="stat-label-custom">Gagal</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FILTER SECTION -->
+        <div class="filter-card-custom mb-5">
+            <h3 class="filter-title-custom"><i class="bi bi-funnel"></i> Filter Transaksi</h3>
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="filterType" class="form-label text-white"><i class="bi bi-tags"></i> Jenis Transaksi</label>
+                        <select id="filterType" class="filter-select-custom form-select">
+                            <option value="all">Semua Jenis</option>
+                            <option value="topup">Top Up</option>
+                            <option value="pulsa">Pulsa</option>
+                            <option value="internet">Internet</option>
+                            <option value="streaming">Streaming</option>
+                            <option value="nonton">Nonton</option>
+                            <option value="wifi">Layanan Wifi</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="filterStatus" class="form-label text-white"><i class="bi bi-info-circle"></i> Status</label>
+                        <select id="filterStatus" class="filter-select-custom form-select">
+                            <option value="all">Semua Status</option>
+                            <option value="success">Berhasil</option>
+                            <option value="pending">Pending</option>
+                            <option value="failed">Gagal</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="filterDate" class="form-label text-white"><i class="bi bi-calendar"></i> Periode</label>
+                        <select id="filterDate" class="filter-select-custom form-select">
+                            <option value="all">Semua Waktu</option>
+                            <option value="today">Hari Ini</option>
+                            <option value="week">7 Hari Terakhir</option>
+                            <option value="month">30 Hari Terakhir</option>
+                            <option value="custom">Kustom</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-6" id="customDateRange" style="display: none;">
+                    <div class="mb-3">
+                        <label for="startDate" class="form-label text-white"><i class="bi bi-calendar-minus"></i> Dari Tanggal</label>
+                        <input type="date" id="startDate" class="filter-input-custom form-control">
+                    </div>
+                </div>
+                
+                <div class="col-md-6" id="customDateRangeEnd" style="display: none;">
+                    <div class="mb-3">
+                        <label for="endDate" class="form-label text-white"><i class="bi bi-calendar-plus"></i> Sampai Tanggal</label>
+                        <input type="date" id="endDate" class="filter-input-custom form-control">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex gap-3 flex-wrap">
+                <button class="btn-filter-apply-custom" id="applyFilter">
+                    <i class="bi bi-check"></i> Terapkan Filter
+                </button>
+                <button class="btn-filter-reset-custom" id="resetFilter">
+                    <i class="bi bi-arrow-clockwise"></i> Reset Filter
+                </button>
+            </div>
+        </div>
+        
+        <!-- TRANSACTIONS SECTION -->
+        <div class="transactions-card-custom">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="transactions-title-custom"><i class="bi bi-list"></i> Daftar Transaksi</h3>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button class="btn-refresh-custom" id="refreshButton">
+                        <i class="bi bi-arrow-clockwise"></i> Refresh
+                    </button>
+                    <button class="btn-export-custom" id="exportButton">
+                        <i class="bi bi-download"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+            
+            <div id="transactionsList">
+                <!-- Transaksi akan ditampilkan di sini -->
+                <div class="empty-state-custom">
+                    <div class="empty-state-icon-custom"><i class="bi bi-clock-history"></i></div>
+                    <h3>Belum Ada Transaksi</h3>
+                    <p>Mulai lakukan transaksi pertama Anda di halaman Pulsa, Paket Data, atau Top Up</p>
+                    <button class="empty-state-button-custom" onclick="window.location.href='pulsa.html'">
+                        <i class="bi bi-cart"></i> Mulai Belanja
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination-custom" id="pagination" style="display: none;">
+                <button class="pagination-button-custom" id="prevPage" disabled>
+                    <i class="bi bi-chevron-left"></i> Sebelumnya
+                </button>
+                <div id="pageNumbers"></div>
+                <button class="pagination-button-custom" id="nextPage" disabled>
+                    Selanjutnya <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ==================== KONFIGURASI ====================
+        const ITEMS_PER_PAGE = 10;
+        let currentPage = 1;
+        let filteredTransactions = [];
+        
+        // ==================== FUNGSI UTAMA ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check login status
+            checkLoginStatus();
+            
+            // Update balance display
+            updateBalanceDisplay();
+            
+            // Setup filter tanggal custom
+            const dateFilter = document.getElementById('filterDate');
+            
+            dateFilter.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    document.getElementById('customDateRange').style.display = 'block';
+                    document.getElementById('customDateRangeEnd').style.display = 'block';
+                } else {
+                    document.getElementById('customDateRange').style.display = 'none';
+                    document.getElementById('customDateRangeEnd').style.display = 'none';
+                }
+            });
+            
+            // Setup tombol filter
+            document.getElementById('applyFilter').addEventListener('click', refreshData);
+            document.getElementById('resetFilter').addEventListener('click', function() {
+                document.getElementById('filterType').value = 'all';
+                document.getElementById('filterStatus').value = 'all';
+                document.getElementById('filterDate').value = 'all';
+                document.getElementById('customDateRange').style.display = 'none';
+                document.getElementById('customDateRangeEnd').style.display = 'none';
+                refreshData();
+            });
+            
+            // Setup tombol export
+            document.getElementById('exportButton').addEventListener('click', exportToCSV);
+            
+            // Setup tombol refresh
+            document.getElementById('refreshButton').addEventListener('click', refreshData);
+            
+            // Setup tombol pagination
+            document.getElementById('prevPage').addEventListener('click', function() {
+                if (currentPage > 1) {
+                    goToPage(currentPage - 1);
+                }
+            });
+            
+            document.getElementById('nextPage').addEventListener('click', function() {
+                goToPage(currentPage + 1);
+            });
+            
+            // Navbar scroll effect
+            initNavbarScroll();
+            
+            // Load data awal
+            refreshData();
+        });
+        
+        // ==================== NAVBAR SCROLL EFFECT ====================
+        function initNavbarScroll() {
+            const navbar = document.getElementById('navbar');
+            if (!navbar) return;
+            
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > lastScroll && currentScroll > 80) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                lastScroll = currentScroll;
+            });
+        }
+        
+        // ==================== CHECK LOGIN STATUS ====================
+        function checkLoginStatus() {
+            try {
+                const isLoggedIn = localStorage.getItem('isLoggedIn');
+                const isRegistered = localStorage.getItem('isRegistered');
+                
+                if (isLoggedIn !== 'true' && !isRegistered) {
+                    window.location.href = 'login.html';
+                }
+            } catch (error) {
+                console.error('Error checking login status:', error);
+            }
+        }
+        
+        // ==================== UPDATE BALANCE DISPLAY ====================
+        function updateBalanceDisplay() {
+            try {
+                const userBalance = parseInt(localStorage.getItem('user_balance') || 328500);
+                const balanceElement = document.getElementById('balanceAmount');
+                if (balanceElement) {
+                    balanceElement.textContent = 'Saldo: Rp ' + userBalance.toLocaleString('id-ID');
+                }
+                
+                // Add warning animation if balance is low
+                if (userBalance < 50000) {
+                    const balanceDiv = document.getElementById('navbarBalance');
+                    if (balanceDiv) {
+                        balanceDiv.style.animation = 'pulseGold 1.5s infinite';
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating balance display:', error);
+            }
+        }
+        
+        // ==================== LOGOUT FUNCTION ====================
+        function logout() {
+            try {
+                // Clear all user data from localStorage except registration data
+                const keysToKeep = ['isRegistered', 'user_name', 'user_email', 'user_phone', 'user_password'];
+                const allKeys = Object.keys(localStorage);
+                
+                allKeys.forEach(key => {
+                    if (!keysToKeep.includes(key)) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                
+                // Set login status to false
+                localStorage.setItem('isLoggedIn', 'false');
+                
+                // Redirect to login page
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Error in logout:', error);
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // ==================== FUNGSI TRANSAKSI ====================
+        function getTransactions() {
+            try {
+                let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+                
+                // Jika tidak ada transaksi, coba ambil dari riwayat pembelian lama
+                if (transactions.length === 0) {
+                    transactions = getLegacyTransactions();
+                    if (transactions.length > 0) {
+                        localStorage.setItem('transactions', JSON.stringify(transactions));
+                    }
+                }
+                
+                return transactions;
+            } catch (error) {
+                console.error('Error getting transactions:', error);
+                return [];
+            }
+        }
+        
+        // Fungsi untuk mengambil transaksi dari data lama
+        function getLegacyTransactions() {
+            try {
+                const transactions = [];
+                
+                // Cek riwayat topup dari payment.html
+                const paymentHistory = JSON.parse(localStorage.getItem('paymentHistory')) || [];
+                paymentHistory.forEach(payment => {
+                    transactions.push({
+                        id: payment.id || 'TRX' + Date.now(),
+                        type: 'topup',
+                        description: 'Top Up Saldo',
+                        details: `Metode: ${payment.method || 'Transfer'}`,
+                        amount: payment.amount || 0,
+                        date: payment.date || new Date().toISOString(),
+                        status: 'success'
+                    });
+                });
+                
+                // Cek riwayat dari selectedPackage
+                const selectedPackage = JSON.parse(localStorage.getItem('selectedPackage')) || {};
+                if (selectedPackage.id) {
+                    transactions.push({
+                        id: 'TRX' + Date.now(),
+                        type: selectedPackage.type || 'data',
+                        description: selectedPackage.name || 'Paket',
+                        details: selectedPackage.description || '',
+                        amount: -selectedPackage.price || 0,
+                        date: selectedPackage.date || new Date().toISOString(),
+                        status: 'success'
+                    });
+                }
+                
+                return transactions;
+            } catch (error) {
+                console.error('Error getting legacy transactions:', error);
+                return [];
+            }
+        }
+        
+        function getTypeBadge(type) {
+            const badges = {
+                'pulsa': { class: 'type-pulsa-custom', text: 'Pulsa', icon: 'bi bi-phone' },
+                'streaming': { class: 'type-streaming-custom', text: 'Streaming', icon: 'bi bi-play-circle' },
+                'topup': { class: 'type-topup-custom', text: 'Top Up', icon: 'bi bi-wallet' },
+                'data': { class: 'type-data-custom', text: 'Data', icon: 'bi bi-wifi' },
+                'nonton': { class: 'type-nonton-custom', text: 'Nonton', icon: 'bi bi-tv' },
+                'wifi': { class: 'type-wifi-custom', text: 'Wifi', icon: 'bi bi-router' },
+                'internet': { class: 'type-data-custom', text: 'Internet', icon: 'bi bi-wifi' }
+            };
+            
+            return badges[type] || { class: 'type-pulsa-custom', text: 'Lainnya', icon: 'bi bi-question-circle' };
+        }
+        
+        function getStatusBadge(status) {
+            const badges = {
+                'success': { class: 'status-success-custom', text: 'Berhasil', icon: 'bi bi-check-circle' },
+                'pending': { class: 'status-pending-custom', text: 'Pending', icon: 'bi bi-clock' },
+                'failed': { class: 'status-failed-custom', text: 'Gagal', icon: 'bi bi-x-circle' }
+            };
+            
+            return badges[status] || { class: 'status-pending-custom', text: 'Pending', icon: 'bi bi-clock' };
+        }
+        
+        function formatDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('id-ID', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch (error) {
+                return dateString;
+            }
+        }
+        
+        function formatCurrency(amount) {
+            return 'Rp ' + Math.abs(amount).toLocaleString('id-ID');
+        }
+        
+        function calculateStatistics(transactions) {
+            const stats = {
+                total: transactions.length,
+                success: 0,
+                pending: 0,
+                failed: 0
+            };
+            
+            transactions.forEach(transaction => {
+                if (transaction.status === 'success') stats.success++;
+                else if (transaction.status === 'pending') stats.pending++;
+                else if (transaction.status === 'failed') stats.failed++;
+            });
+            
+            return stats;
+        }
+        
+        function displayStatistics(stats) {
+            try {
+                document.getElementById('totalTransactions').textContent = stats.total;
+                document.getElementById('successTransactions').textContent = stats.success;
+                document.getElementById('pendingTransactions').textContent = stats.pending;
+                document.getElementById('failedTransactions').textContent = stats.failed;
+            } catch (error) {
+                console.error('Error displaying statistics:', error);
+            }
+        }
+        
+        function filterTransactions() {
+            try {
+                const typeFilter = document.getElementById('filterType').value;
+                const statusFilter = document.getElementById('filterStatus').value;
+                const dateFilter = document.getElementById('filterDate').value;
+                
+                const allTransactions = getTransactions();
+                let filtered = [...allTransactions];
+                
+                // Filter berdasarkan jenis
+                if (typeFilter !== 'all') {
+                    filtered = filtered.filter(t => t.type === typeFilter);
+                }
+                
+                // Filter berdasarkan status
+                if (statusFilter !== 'all') {
+                    filtered = filtered.filter(t => t.status === statusFilter);
+                }
+                
+                // Filter berdasarkan tanggal
+                if (dateFilter !== 'all') {
+                    const now = new Date();
+                    let startDate = new Date();
+                    
+                    switch(dateFilter) {
+                        case 'today':
+                            startDate.setHours(0, 0, 0, 0);
+                            break;
+                        case 'week':
+                            startDate.setDate(now.getDate() - 7);
+                            break;
+                        case 'month':
+                            startDate.setDate(now.getDate() - 30);
+                            break;
+                        case 'custom':
+                            const start = document.getElementById('startDate').value;
+                            const end = document.getElementById('endDate').value;
+                            
+                            if (start && end) {
+                                filtered = filtered.filter(t => {
+                                    const transDate = new Date(t.date);
+                                    const startDate = new Date(start + 'T00:00:00');
+                                    const endDate = new Date(end + 'T23:59:59');
+                                    return transDate >= startDate && transDate <= endDate;
+                                });
+                            }
+                            break;
+                    }
+                    
+                    if (dateFilter !== 'custom') {
+                        filtered = filtered.filter(t => {
+                            const transDate = new Date(t.date);
+                            return transDate >= startDate;
+                        });
+                    }
+                }
+                
+                // Urutkan berdasarkan tanggal terbaru
+                filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                return filtered;
+            } catch (error) {
+                console.error('Error filtering transactions:', error);
+                return [];
+            }
+        }
+        
+        function displayTransactions(transactions, page = 1) {
+            try {
+                const container = document.getElementById('transactionsList');
+                const pagination = document.getElementById('pagination');
+                
+                if (transactions.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state-custom">
+                            <div class="empty-state-icon-custom"><i class="bi bi-search"></i></div>
+                            <h3>Tidak Ada Transaksi yang Ditemukan</h3>
+                            <p>Coba gunakan filter yang berbeda atau lakukan transaksi baru</p>
+                            <button class="empty-state-button-custom" onclick="resetFilters()">
+                                <i class="bi bi-arrow-clockwise"></i> Reset Filter
+                            </button>
+                        </div>
+                    `;
+                    pagination.style.display = 'none';
+                    return;
+                }
+                
+                // Hitung pagination
+                const totalPages = Math.ceil(transactions.length / ITEMS_PER_PAGE);
+                const startIndex = (page - 1) * ITEMS_PER_PAGE;
+                const endIndex = startIndex + ITEMS_PER_PAGE;
+                const pageTransactions = transactions.slice(startIndex, endIndex);
+                
+                // Generate HTML untuk transaksi
+                let html = `
+                    <div class="table-responsive">
+                        <table class="table-transactions-custom">
+                            <thead>
+                                <tr>
+                                    <th>ID Transaksi</th>
+                                    <th>Jenis</th>
+                                    <th>Deskripsi</th>
+                                    <th>Tanggal</th>
+                                    <th>Jumlah</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                
+                pageTransactions.forEach(transaction => {
+                    const typeBadge = getTypeBadge(transaction.type);
+                    const statusBadge = getStatusBadge(transaction.status);
+                    const amountClass = transaction.amount >= 0 ? 'amount-positive-custom' : 'amount-negative-custom';
+                    const amountSign = transaction.amount >= 0 ? '+' : '-';
+                    
+                    html += `
+                        <tr>
+                            <td><span class="transaction-id-custom">${transaction.id}</span></td>
+                            <td>
+                                <span class="transaction-type-badge-custom ${typeBadge.class}">
+                                    <i class="${typeBadge.icon}"></i>
+                                    ${typeBadge.text}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="transaction-description-custom">${transaction.description}</div>
+                                <div class="transaction-details-custom">${transaction.details || ''}</div>
+                            </td>
+                            <td>
+                                <div class="transaction-date-custom">${formatDate(transaction.date)}</div>
+                            </td>
+                            <td>
+                                <div class="transaction-amount-custom ${amountClass}">
+                                    ${amountSign}${formatCurrency(transaction.amount)}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="transaction-status-badge-custom ${statusBadge.class}">
+                                    <i class="${statusBadge.icon}"></i>
+                                    ${statusBadge.text}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="action-button-custom" onclick="viewTransactionDetail('${transaction.id}')">
+                                    <i class="bi bi-eye"></i> Detail
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += `</tbody></table></div>`;
+                container.innerHTML = html;
+                
+                // Tampilkan pagination jika perlu
+                if (totalPages > 1) {
+                    displayPagination(totalPages, page);
+                    pagination.style.display = 'flex';
+                } else {
+                    pagination.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error displaying transactions:', error);
+            }
+        }
+        
+        function displayPagination(totalPages, currentPage) {
+            try {
+                const pageNumbers = document.getElementById('pageNumbers');
+                let html = '';
+                
+                // Tentukan range halaman yang akan ditampilkan
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, startPage + 4);
+                
+                if (endPage - startPage < 4) {
+                    startPage = Math.max(1, endPage - 4);
+                }
+                
+                // Tombol halaman sebelumnya
+                document.getElementById('prevPage').disabled = currentPage === 1;
+                
+                // Nomor halaman
+                for (let i = startPage; i <= endPage; i++) {
+                    html += `
+                        <button class="pagination-button-custom ${i === currentPage ? 'active' : ''}" 
+                                onclick="goToPage(${i})">
+                            ${i}
+                        </button>
+                    `;
+                }
+                
+                pageNumbers.innerHTML = html;
+                
+                // Tombol halaman berikutnya
+                document.getElementById('nextPage').disabled = currentPage === totalPages;
+            } catch (error) {
+                console.error('Error displaying pagination:', error);
+            }
+        }
+        
+        function goToPage(page) {
+            currentPage = page;
+            displayTransactions(filteredTransactions, page);
+        }
+        
+        function viewTransactionDetail(transactionId) {
+            try {
+                const transactions = getTransactions();
+                const transaction = transactions.find(t => t.id === transactionId);
+                
+                if (transaction) {
+                    const typeBadge = getTypeBadge(transaction.type);
+                    const statusBadge = getStatusBadge(transaction.status);
+                    const amountSign = transaction.amount >= 0 ? '+' : '-';
+                    
+                    alert(`📋 DETAIL TRANSAKSI\n\n` +
+                          `ID: ${transaction.id}\n` +
+                          `Jenis: ${typeBadge.text}\n` +
+                          `Deskripsi: ${transaction.description}\n` +
+                          `Detail: ${transaction.details || '-'}\n` +
+                          `Jumlah: ${amountSign}${formatCurrency(transaction.amount)}\n` +
+                          `Tanggal: ${formatDate(transaction.date)}\n` +
+                          `Status: ${statusBadge.text}\n\n` +
+                          `📝 Catatan: Transaksi ini tersimpan secara lokal di browser Anda.`);
+                }
+            } catch (error) {
+                console.error('Error viewing transaction detail:', error);
+            }
+        }
+        
+        // ==================== EXPORT FUNCTIONS ====================
+        function exportToCSV() {
+            try {
+                const transactions = filteredTransactions.length > 0 ? filteredTransactions : getTransactions();
+                
+                if (transactions.length === 0) {
+                    showNotification('Tidak ada transaksi untuk diexport.', 'error');
+                    return;
+                }
+                
+                // Header CSV
+                let csv = 'ID Transaksi,Jenis,Deskripsi,Detail,Jumlah,Tanggal,Status,User,Phone\n';
+                
+                // Data transaksi
+                transactions.forEach(transaction => {
+                    const user = localStorage.getItem('user_name') || 'Guest';
+                    const phone = localStorage.getItem('user_phone') || '-';
+                    
+                    const row = [
+                        transaction.id,
+                        transaction.type,
+                        `"${transaction.description}"`,
+                        `"${transaction.details || ''}"`,
+                        transaction.amount,
+                        `"${transaction.date}"`,
+                        transaction.status,
+                        `"${user}"`,
+                        `"${phone}"`
+                    ];
+                    csv += row.join(',') + '\n';
+                });
+                
+                // Buat blob dan download
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `riwayat-transaksi-signalin-${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                showNotification(`Berhasil mengexport ${transactions.length} transaksi ke file CSV.`, 'success');
+            } catch (error) {
+                console.error('Error exporting to CSV:', error);
+                showNotification('Gagal mengexport data.', 'error');
+            }
+        }
+        
+        // ==================== UTILITY FUNCTIONS ====================
+        function refreshData() {
+            try {
+                const transactions = getTransactions();
+                const stats = calculateStatistics(transactions);
+                
+                // Update statistik
+                displayStatistics(stats);
+                
+                // Filter dan tampilkan transaksi
+                filteredTransactions = filterTransactions();
+                currentPage = 1;
+                displayTransactions(filteredTransactions, currentPage);
+                
+                showNotification('Data transaksi berhasil diperbarui!', 'success');
+            } catch (error) {
+                console.error('Error refreshing data:', error);
+            }
+        }
+        
+        function resetFilters() {
+            document.getElementById('filterType').value = 'all';
+            document.getElementById('filterStatus').value = 'all';
+            document.getElementById('filterDate').value = 'all';
+            document.getElementById('customDateRange').style.display = 'none';
+            document.getElementById('customDateRangeEnd').style.display = 'none';
+            refreshData();
+        }
+        
+        function showLoading(show) {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (show) {
+                loadingOverlay.classList.add('show');
+            } else {
+                loadingOverlay.classList.remove('show');
+            }
+        }
+        
+        function showNotification(message, type = 'success') {
+            try {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.className = 'notification-custom';
+                
+                if (type === 'error') {
+                    notification.classList.add('error');
+                } else if (type === 'success') {
+                    notification.classList.add('success');
+                }
+                
+                notification.style.display = 'block';
+                
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 5000);
+            } catch (error) {
+                console.error('Error showing notification:', error);
+            }
+        }
+        
+        // ==================== KEYBOARD SHORTCUTS ====================
+        document.addEventListener('keydown', function(e) {
+            // ESC to close sidebar
+            if (e.key === 'Escape') {
+                const mobileSidebar = document.getElementById('mobileSidebar');
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(mobileSidebar);
+                if (bsOffcanvas) {
+                    bsOffcanvas.hide();
+                }
+            }
+            
+            // F5 to refresh data
+            if (e.key === 'F5') {
+                e.preventDefault();
+                refreshData();
+            }
+        });
+        
+        // Auto-refresh data setiap 30 detik
+        setInterval(refreshData, 30000);
+    </script>
+</body>
+</html>

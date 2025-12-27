@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signalin - Top Up Saldo</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-white: #FFFFFF;
+            --primary-yellow: #FFD700;
+            --primary-yellow-dark: #FFB300;
+            --primary-yellow-light: #FFF9C4;
+            --primary-black: #000000;
+            --primary-gray: #F5F5F5;
+            --primary-gray-medium: #E0E0E0;
+            --primary-gray-dark: #757575;
+            --accent-silver: #C0C0C0;
+            --accent-bronze: #CD7F32;
+            --success-green: #4CAF50;
+            --error-red: #F44336;
+            --text-main: #212121;
+            --text-light: #757575;
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.1);
+            --shadow-dark: 0 12px 36px rgba(0, 0, 0, 0.15);
+            --shadow-yellow: 0 0 20px rgba(255, 215, 0, 0.3);
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--primary-gray);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+        
+        /* Custom Navbar */
+        .navbar-custom {
+            background-color: var(--primary-white);
+            border-bottom: 3px solid var(--primary-yellow);
+            box-shadow: var(--shadow-light);
+            min-height: 80px;
+        }
+        
+        .navbar-brand-custom {
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 2.2rem;
+            color: var(--primary-black) !important;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0 var(--primary-yellow);
+        }
+        
+        .back-btn-custom {
+            background-color: var(--primary-yellow);
+            color: var(--primary-black) !important;
+            border: 2px solid var(--primary-yellow);
+            border-radius: 12px;
+            padding: 10px 15px;
+            transition: all var(--transition-fast);
+        }
+        
+        .back-btn-custom:hover {
+            background-color: var(--primary-yellow-dark);
+            border-color: var(--primary-yellow-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-yellow);
+        }
+        
+        /* Header */
+        .topup-header {
+            background-color: var(--primary-white);
+            border: 2px solid var(--primary-yellow);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .topup-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-black);
+        }
+        
+        .topup-title span {
+            color: var(--primary-yellow);
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Step Indicator */
+        .step-indicator-custom {
+            background-color: var(--primary-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-light);
+            padding: 25px;
+        }
+        
+        .step-number-custom {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-gray-medium);
+            border: 3px solid var(--primary-gray-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-light);
+            transition: all var(--transition-normal);
+        }
+        
+        .step-active .step-number-custom {
+            background-color: var(--primary-yellow);
+            border-color: var(--primary-yellow);
+            color: var(--primary-black);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-yellow);
+        }
+        
+        .step-completed .step-number-custom {
+            background-color: var(--success-green);
+            border-color: var(--success-green);
+            color: var(--primary-white);
+        }
+        
+        .step-connector-custom {
+            height: 3px;
+            background-color: var(--primary-gray-medium);
+            flex-grow: 1;
+            margin: 0 10px;
+            position: relative;
+            top: 25px;
+        }
+        
+        .step-connector-active {
+            background-color: var(--primary-yellow);
+        }
+        
+        .step-connector-completed {
+            background-color: var(--success-green);
+        }
+        
+        /* Cards */
+        .topup-card-custom {
+            background-color: var(--primary-white);
+            border: 3px solid var(--primary-yellow);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-medium);
+            padding: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .topup-card-custom {
+                padding: 25px 20px;
+            }
+        }
+        
+        .section-title-custom {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-black);
+            border-bottom: 2px solid var(--primary-yellow-light);
+            padding-bottom: 10px;
+        }
+        
+        .section-title-custom i {
+            color: var(--primary-yellow);
+        }
+        
+        /* Amount Options */
+        .amount-option-custom {
+            background-color: var(--primary-gray);
+            border: 2px solid var(--primary-gray-medium);
+            border-radius: var(--border-radius);
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            height: 100%;
+        }
+        
+        .amount-option-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-yellow);
+            border-color: var(--primary-yellow);
+        }
+        
+        .amount-option-selected {
+            background: linear-gradient(135deg, var(--primary-yellow), var(--primary-yellow-light));
+            border-color: var(--primary-yellow);
+            color: var(--primary-black);
+            box-shadow: var(--shadow-yellow);
+        }
+        
+        .amount-option-popular {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .amount-option-popular::before {
+            content: 'POPULER';
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 4px 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+        }
+        
+        .amount-value-custom {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-yellow-dark);
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+        }
+        
+        /* Custom Amount Input */
+        .custom-amount-custom {
+            background-color: var(--primary-gray);
+            border: 2px solid var(--primary-yellow-light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+        }
+        
+        .input-prefix-custom {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-yellow-dark);
+        }
+        
+        .custom-input-custom {
+            background-color: var(--primary-white);
+            border: 2px solid var(--primary-gray-medium);
+            border-radius: var(--border-radius);
+            color: var(--text-main);
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all var(--transition-fast);
+        }
+        
+        .custom-input-custom:focus {
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+            background-color: var(--primary-yellow-light);
+        }
+        
+        /* Balance Info */
+        .balance-info-custom {
+            background: linear-gradient(135deg, var(--primary-yellow-light), var(--primary-white));
+            border: 2px solid var(--primary-yellow);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            padding: 25px;
+        }
+        
+        .info-row-custom {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        
+        .info-row-custom:last-child {
+            border-bottom: none;
+        }
+        
+        .info-value-highlight {
+            color: var(--primary-yellow-dark) !important;
+        }
+        
+        /* Buttons */
+        .btn-next-custom {
+            background: linear-gradient(135deg, var(--primary-yellow), var(--primary-yellow-dark));
+            color: var(--primary-black);
+            border: 2px solid var(--primary-black);
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 18px;
+            transition: all var(--transition-fast);
+        }
+        
+        .btn-next-custom:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--primary-yellow-dark), var(--primary-yellow));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-yellow);
+        }
+        
+        .btn-confirm-custom {
+            background: linear-gradient(135deg, var(--success-green), #66BB6A);
+            color: var(--primary-white);
+            border: 2px solid var(--primary-white);
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 18px;
+            transition: all var(--transition-fast);
+        }
+        
+        .btn-confirm-custom:hover:not(:disabled) {
+            background: linear-gradient(135deg, #66BB6A, var(--success-green));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        /* Verification Code Display */
+        .verification-code-display-custom {
+            background: linear-gradient(135deg, var(--primary-white), var(--primary-yellow-light));
+            border: 3px solid var(--primary-yellow);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-yellow);
+            padding: 30px;
+        }
+        
+        .verification-code-value-custom {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-black);
+            letter-spacing: 10px;
+            font-family: monospace;
+            text-shadow: 2px 2px 0 var(--primary-yellow);
+            background-color: var(--primary-gray);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: 2px solid var(--primary-yellow);
+        }
+        
+        /* Payment Details */
+        .payment-details-custom {
+            background-color: var(--primary-gray);
+            border: 2px solid var(--primary-yellow);
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+        
+        /* Code Inputs */
+        .code-input-custom {
+            width: 60px;
+            height: 70px;
+            font-size: 2rem;
+            text-align: center;
+            background-color: var(--primary-white);
+            border: 3px solid var(--primary-gray-medium);
+            border-radius: var(--border-radius);
+            color: var(--text-main);
+            font-weight: 700;
+            transition: all var(--transition-fast);
+        }
+        
+        .code-input-custom:focus {
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+            background-color: var(--primary-yellow-light);
+        }
+        
+        .code-input-filled {
+            border-color: var(--primary-yellow);
+            background-color: var(--primary-yellow-light);
+        }
+        
+        .code-input-error {
+            border-color: var(--error-red);
+            background-color: #FFEBEE;
+        }
+        
+        /* Countdown */
+        .countdown-custom {
+            background-color: var(--primary-yellow-light);
+            border-radius: var(--border-radius);
+            color: var(--primary-yellow-dark);
+            font-weight: 700;
+            padding: 12px;
+        }
+        
+        /* Success Section */
+        .success-section-custom {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .success-icon-custom {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--success-green), #66BB6A);
+            color: var(--primary-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 30px;
+            animation: successPulse 2s infinite;
+            border: 4px solid var(--primary-white);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .success-title-custom {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--success-green);
+        }
+        
+        .new-balance-custom {
+            background: linear-gradient(135deg, var(--primary-yellow-light), var(--primary-white));
+            border: 3px solid var(--primary-yellow);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .new-balance-value-custom {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-yellow-dark);
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Action Buttons */
+        .btn-action-custom {
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            padding: 15px 35px;
+            min-width: 180px;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-yellow), var(--primary-yellow-dark));
+            color: var(--primary-black);
+            border: 2px solid var(--primary-black);
+        }
+        
+        .btn-primary-custom:hover {
+            background: linear-gradient(135deg, var(--primary-yellow-dark), var(--primary-yellow));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-yellow);
+        }
+        
+        .btn-secondary-custom {
+            background-color: var(--primary-white);
+            color: var(--primary-black);
+            border: 2px solid var(--primary-yellow);
+        }
+        
+        .btn-secondary-custom:hover {
+            background-color: var(--primary-yellow);
+            color: var(--primary-black);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-yellow);
+        }
+        
+        /* Modal */
+        .modal-content-custom {
+            background-color: var(--primary-white);
+            border: 4px solid var(--primary-yellow);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-dark);
+        }
+        
+        .modal-icon-custom {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--success-green), #66BB6A);
+            color: var(--primary-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            animation: successPulse 1.5s infinite;
+        }
+        
+        .modal-title-custom {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--success-green);
+        }
+        
+        .modal-amount-custom {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-yellow-dark);
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+            background-color: var(--primary-yellow-light);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: 2px solid var(--primary-yellow);
+        }
+        
+        .modal-close-btn-custom {
+            background: linear-gradient(135deg, var(--primary-yellow), var(--primary-yellow-dark));
+            color: var(--primary-black);
+            border: 2px solid var(--primary-black);
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            padding: 12px 30px;
+            transition: all var(--transition-fast);
+        }
+        
+        .modal-close-btn-custom:hover {
+            background: linear-gradient(135deg, var(--primary-yellow-dark), var(--primary-yellow));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-yellow);
+        }
+        
+        /* Animations */
+        @keyframes successPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+            }
+        }
+        
+        /* Loading */
+        .loading-custom {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-white);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .topup-title {
+                font-size: 2rem;
+            }
+            
+            .step-number-custom {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .verification-code-value-custom {
+                font-size: 2.2rem;
+                letter-spacing: 6px;
+            }
+            
+            .code-input-custom {
+                width: 50px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .btn-action-custom {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .verification-code-value-custom {
+                font-size: 1.8rem;
+                letter-spacing: 4px;
+            }
+            
+            .code-input-custom {
+                width: 40px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-amount-custom {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center">
+                <a href="home.html" class="back-btn-custom me-3 text-decoration-none">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+                <a class="navbar-brand navbar-brand-custom" href="#">Signalin</a>
+            </div>
+            <div></div> <!-- Empty div for alignment -->
+        </div>
+    </nav>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-body text-center p-5">
+                    <div class="modal-icon-custom">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+                    <h2 class="modal-title-custom mb-3">Top Up Berhasil!</h2>
+                    <p class="mb-4">
+                        Saldo Anda telah berhasil ditambahkan sebesar:
+                    </p>
+                    <div class="modal-amount-custom mb-4" id="modalAmount">Rp 0</div>
+                    <p class="mb-4">
+                        Saldo baru Anda telah tersimpan dan dapat dilihat di halaman profil.
+                    </p>
+                    <button type="button" class="modal-close-btn-custom" data-bs-dismiss="modal">
+                        <i class="bi bi-check-circle me-2"></i>
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container topup-container my-4">
+        <!-- Header -->
+        <div class="topup-header p-4 p-md-5 mb-5 text-center">
+            <h1 class="topup-title mb-3">Top Up <span>Saldo</span></h1>
+            <p class="lead">
+                Isi saldo akun Signalin Anda dengan mudah dan aman. Gunakan untuk membeli pulsa, paket data, atau layanan lainnya.
+            </p>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator-custom mb-5">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-auto">
+                    <div class="step step-active" id="step1">
+                        <div class="step-number-custom">1</div>
+                        <div class="step-label mt-2 fw-semibold">Pilih Nominal</div>
+                    </div>
+                </div>
+                <div class="col step-connector-custom step-connector-active" id="connector1"></div>
+                <div class="col-auto">
+                    <div class="step" id="step2">
+                        <div class="step-number-custom">2</div>
+                        <div class="step-label mt-2 fw-semibold">Verifikasi</div>
+                    </div>
+                </div>
+                <div class="col step-connector-custom" id="connector2"></div>
+                <div class="col-auto">
+                    <div class="step" id="step3">
+                        <div class="step-number-custom">3</div>
+                        <div class="step-label mt-2 fw-semibold">Selesai</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Select Amount -->
+        <div class="topup-card-custom mb-4" id="step1Card">
+            <div class="amount-selection mb-4">
+                <h2 class="section-title-custom mb-4">
+                    <i class="bi bi-cash-coin me-2"></i>
+                    Pilih Jumlah Top Up
+                </h2>
+                
+                <div class="row row-cols-2 row-cols-md-3 g-3 mb-4">
+                    <div class="col">
+                        <div class="amount-option-custom" data-amount="50000">
+                            <div class="amount-value-custom">Rp 50K</div>
+                            <div class="amount-label">Lima Puluh Ribu</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="amount-option-custom" data-amount="100000">
+                            <div class="amount-value-custom">Rp 100K</div>
+                            <div class="amount-label">Seratus Ribu</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="amount-option-custom amount-option-popular" data-amount="150000">
+                            <div class="amount-value-custom">Rp 150K</div>
+                            <div class="amount-label">Seratus Lima Puluh Ribu</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="amount-option-custom" data-amount="200000">
+                            <div class="amount-value-custom">Rp 200K</div>
+                            <div class="amount-label">Dua Ratus Ribu</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="amount-option-custom" data-amount="300000">
+                            <div class="amount-value-custom">Rp 300K</div>
+                            <div class="amount-label">Tiga Ratus Ribu</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="amount-option-custom" data-amount="500000">
+                            <div class="amount-value-custom">Rp 500K</div>
+                            <div class="amount-label">Lima Ratus Ribu</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="custom-amount-custom mb-4">
+                    <h3 class="h5 fw-semibold mb-3">
+                        <i class="bi bi-pencil-square me-2"></i>
+                        Atau Masukkan Jumlah Lain
+                    </h3>
+                    <div class="row g-2 align-items-center">
+                        <div class="col-auto">
+                            <div class="input-prefix-custom">Rp</div>
+                        </div>
+                        <div class="col">
+                            <input type="number" id="customAmount" class="form-control custom-input-custom" 
+                                   placeholder="Contoh: 75000" min="10000" max="1000000">
+                        </div>
+                    </div>
+                    <div class="alert alert-warning mt-3 mb-0" role="alert">
+                        <i class="bi bi-info-circle me-2"></i> Minimum top up Rp 10.000, maksimum Rp 1.000.000
+                    </div>
+                </div>
+            </div>
+            
+            <div class="balance-info-custom mb-4">
+                <div class="info-row-custom d-flex justify-content-between">
+                    <div class="info-label fw-medium">Saldo Saat Ini</div>
+                    <div class="info-value fw-bold" id="currentBalance">Rp 0</div>
+                </div>
+                <div class="info-row-custom d-flex justify-content-between">
+                    <div class="info-label fw-medium">Jumlah Top Up</div>
+                    <div class="info-value fw-bold info-value-highlight" id="selectedAmount">Rp 0</div>
+                </div>
+                <div class="info-row-custom d-flex justify-content-between">
+                    <div class="info-label fw-medium">Saldo Setelah Top Up</div>
+                    <div class="info-value fw-bold info-value-highlight" id="newBalancePreview">Rp 0</div>
+                </div>
+            </div>
+            
+            <button class="btn btn-next-custom w-100" id="nextBtn" onclick="nextToStep2()" disabled>
+                <i class="bi bi-arrow-right me-2"></i>
+                Lanjut ke Verifikasi
+            </button>
+        </div>
+
+        <!-- Step 2: Verification -->
+        <div class="topup-card-custom mb-4" id="step2Card" style="display: none;">
+            <div class="code-input-section text-center">
+                <h2 class="h1 mb-3">Verifikasi Pembayaran</h2>
+                <p class="lead mb-4">
+                    Silakan masukkan <strong>6 digit kode verifikasi</strong> yang ditampilkan di bawah ini untuk melanjutkan proses top up.
+                </p>
+                
+                <div class="verification-code-display-custom mb-4">
+                    <div class="verification-code-label text-uppercase small text-muted mb-2">Kode Verifikasi</div>
+                    <div class="verification-code-value-custom mb-3" id="verificationCode">000000</div>
+                    <div class="verification-code-note text-muted">
+                        <i class="bi bi-exclamation-circle me-2"></i> 
+                        Kode ini akan digunakan untuk memverifikasi pembayaran Anda
+                    </div>
+                </div>
+                
+                <div class="payment-details-custom mb-4">
+                    <h3 class="h5 fw-bold mb-3">
+                        <i class="bi bi-receipt me-2"></i>
+                        Detail Transaksi
+                    </h3>
+                    
+                    <div class="info-row-custom d-flex justify-content-between">
+                        <div class="info-label">Metode Pembayaran</div>
+                        <div class="info-value fw-semibold">Transfer Bank</div>
+                    </div>
+                    <div class="info-row-custom d-flex justify-content-between">
+                        <div class="info-label">Jumlah Top Up</div>
+                        <div class="info-value fw-bold info-value-highlight" id="paymentAmount">Rp 0</div>
+                    </div>
+                    <div class="info-row-custom d-flex justify-content-between pt-3 border-top border-2 border-warning">
+                        <div class="info-label fw-bold">Total yang Ditransfer</div>
+                        <div class="info-value fw-bold fs-4 info-value-highlight" id="totalAmount">Rp 0</div>
+                    </div>
+                </div>
+                
+                <h3 class="section-title-custom mb-3">
+                    <i class="bi bi-key me-2"></i>
+                    Masukkan 6 Digit Kode Verifikasi
+                </h3>
+                <p class="text-muted mb-4">
+                    Masukkan <strong>6 digit kode verifikasi</strong> yang terlihat di atas untuk mengkonfirmasi pembayaran
+                </p>
+                
+                <div class="d-flex justify-content-center gap-2 mb-4">
+                    <input type="text" class="form-control code-input-custom text-center" maxlength="1" data-index="0" oninput="moveToNext(this, 1)">
+                    <input type="text" class="form-control code-input-custom text-center" maxlength="1" data-index="1" oninput="moveToNext(this, 2)">
+                    <input type="text" class="form-control code-input-custom text-center" maxlength="1" data-index="2" oninput="moveToNext(this, 3)">
+                    <input type="text" class="form-control code-input-custom text-center" maxlength="1" data-index="3" oninput="moveToNext(this, 4)">
+                    <input type="text" class="form-control code-input-custom text-center" maxlength="1" data-index="4" oninput="moveToNext(this, 5)">
+                    <input type="text" class="form-control code-input-custom text-center" maxlength="1" data-index="5" oninput="moveToNext(this, 6)">
+                </div>
+                
+                <div class="countdown-custom d-inline-block mb-4">
+                    <i class="bi bi-clock me-2"></i>
+                    Kode berlaku: <span id="timer">30:00</span>
+                </div>
+                
+                <button class="btn btn-confirm-custom w-100" id="confirmBtn" onclick="verifyPayment()" disabled>
+                    <i class="bi bi-check-circle me-2"></i>
+                    Verifikasi dan Proses
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div class="topup-card-custom mb-4" id="step3Card" style="display: none;">
+            <div class="success-section-custom">
+                <div class="success-icon-custom">
+                    <i class="bi bi-check-lg"></i>
+                </div>
+                
+                <h2 class="success-title-custom mb-3">Top Up Berhasil Diproses!</h2>
+                
+                <p class="lead mb-4">
+                    Transaksi top up saldo Anda telah berhasil diproses. Dana akan segera tersedia di akun Signalin Anda.
+                </p>
+                
+                <div class="new-balance-custom mb-4">
+                    <div class="new-balance-label text-uppercase small text-muted mb-2">Saldo Akun Baru</div>
+                    <div class="new-balance-value-custom" id="newBalanceValue">Rp 0</div>
+                </div>
+                
+                <div class="alert alert-warning mb-4 text-start" role="alert">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-clock-history fs-4 me-2"></i>
+                        <strong>Riwayat Transaksi Tersimpan</strong>
+                    </div>
+                    <p class="mb-0 small">Detail transaksi telah disimpan dan dapat dilihat di halaman profil.</p>
+                </div>
+                
+                <div class="row g-3 justify-content-center">
+                    <div class="col-md-6">
+                        <a href="profile.html" class="btn btn-primary-custom btn-action-custom w-100">
+                            <i class="bi bi-person me-2"></i>
+                            Lihat Profil & Saldo
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="home.html" class="btn btn-secondary-custom btn-action-custom w-100">
+                            <i class="bi bi-house me-2"></i>
+                            Kembali ke Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ==================== VARIABLES ====================
+        let topupAmount = 0;
+        let verificationCode = '';
+        let timerInterval;
+        let countdownTime = 1800; // 30 minutes
+        let userBalance = 0;
+        let userPhone = '';
+        
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check login
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn !== 'true') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Get user data
+            userPhone = localStorage.getItem('user_phone') || '';
+            userBalance = parseInt(localStorage.getItem('user_balance') || '0');
+            
+            // Display current balance
+            updateBalanceDisplay();
+            
+            // Setup amount selection
+            setupAmountSelection();
+            
+            // Setup code inputs
+            setupCodeInputs();
+            
+            // Check for previous topup amount in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const amountParam = urlParams.get('amount');
+            
+            if (amountParam) {
+                const amount = parseInt(amountParam);
+                if (amount >= 10000 && amount <= 1000000) {
+                    setSelectedAmount(amount);
+                    document.getElementById('customAmount').value = amount;
+                }
+            }
+        });
+        
+        function updateBalanceDisplay() {
+            document.getElementById('currentBalance').textContent = formatCurrency(userBalance);
+            document.getElementById('newBalancePreview').textContent = formatCurrency(userBalance);
+            document.getElementById('newBalanceValue').textContent = formatCurrency(userBalance);
+        }
+        
+        function formatCurrency(amount) {
+            return 'Rp ' + amount.toLocaleString('id-ID');
+        }
+
+        // ==================== STEP 1: AMOUNT SELECTION ====================
+        function setupAmountSelection() {
+            // Setup amount option click events
+            document.querySelectorAll('.amount-option-custom').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    document.querySelectorAll('.amount-option-custom').forEach(opt => {
+                        opt.classList.remove('amount-option-selected');
+                    });
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('amount-option-selected');
+                    
+                    // Get amount from data attribute
+                    const amount = parseInt(this.dataset.amount);
+                    setSelectedAmount(amount);
+                    
+                    // Clear custom input
+                    document.getElementById('customAmount').value = '';
+                });
+            });
+            
+            // Setup custom amount input
+            const customInput = document.getElementById('customAmount');
+            customInput.addEventListener('input', function() {
+                // Remove selected class from all options
+                document.querySelectorAll('.amount-option-custom').forEach(opt => {
+                    opt.classList.remove('amount-option-selected');
+                });
+                
+                const amount = parseInt(this.value) || 0;
+                if (amount >= 10000 && amount <= 1000000) {
+                    setSelectedAmount(amount);
+                } else {
+                    document.getElementById('nextBtn').disabled = true;
+                }
+            });
+            
+            customInput.addEventListener('focus', function() {
+                // Remove selected class from all options
+                document.querySelectorAll('.amount-option-custom').forEach(opt => {
+                    opt.classList.remove('amount-option-selected');
+                });
+            });
+        }
+        
+        function setSelectedAmount(amount) {
+            topupAmount = amount;
+            
+            // Update displays
+            document.getElementById('selectedAmount').textContent = formatCurrency(amount);
+            document.getElementById('newBalancePreview').textContent = formatCurrency(userBalance + amount);
+            
+            // Enable/disable next button
+            document.getElementById('nextBtn').disabled = (amount < 10000 || amount > 1000000);
+        }
+
+        // ==================== STEP NAVIGATION ====================
+        function nextToStep2() {
+            if (topupAmount < 10000) {
+                alert('Minimum top up adalah Rp 10.000');
+                return;
+            }
+            
+            if (topupAmount > 1000000) {
+                alert('Maksimum top up adalah Rp 1.000.000');
+                return;
+            }
+            
+            // Generate 6-digit verification code
+            verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            // Save to localStorage for verification
+            localStorage.setItem('pending_topup', JSON.stringify({
+                amount: topupAmount,
+                verificationCode: verificationCode,
+                timestamp: Date.now()
+            }));
+            
+            // Update displays
+            document.getElementById('verificationCode').textContent = verificationCode;
+            document.getElementById('paymentAmount').textContent = formatCurrency(topupAmount);
+            document.getElementById('totalAmount').textContent = formatCurrency(topupAmount);
+            
+            // Move to step 2
+            moveToStep(2);
+            startTimer();
+        }
+        
+        function moveToStep(stepNumber) {
+            // Hide all step cards
+            document.getElementById('step1Card').style.display = 'none';
+            document.getElementById('step2Card').style.display = 'none';
+            document.getElementById('step3Card').style.display = 'none';
+            
+            // Reset step indicators
+            const steps = ['step1', 'step2', 'step3'];
+            const connectors = ['connector1', 'connector2'];
+            
+            steps.forEach(stepId => {
+                const step = document.getElementById(stepId);
+                step.classList.remove('step-active', 'step-completed');
+            });
+            
+            connectors.forEach(connectorId => {
+                const connector = document.getElementById(connectorId);
+                connector.classList.remove('step-connector-active', 'step-connector-completed');
+            });
+            
+            // Show selected step and update indicators
+            if (stepNumber === 1) {
+                document.getElementById('step1Card').style.display = 'block';
+                document.getElementById('step1').classList.add('step-active');
+                
+            } else if (stepNumber === 2) {
+                document.getElementById('step2Card').style.display = 'block';
+                document.getElementById('step1').classList.add('step-completed');
+                document.getElementById('step2').classList.add('step-active');
+                document.getElementById('connector1').classList.add('step-connector-completed');
+                
+                // Clear any existing code inputs
+                clearCodeInputs();
+                
+            } else if (stepNumber === 3) {
+                document.getElementById('step3Card').style.display = 'block';
+                document.getElementById('step1').classList.add('step-completed');
+                document.getElementById('step2').classList.add('step-completed');
+                document.getElementById('step3').classList.add('step-active');
+                document.getElementById('connector1').classList.add('step-connector-completed');
+                document.getElementById('connector2').classList.add('step-connector-completed');
+            }
+        }
+
+        // ==================== TIMER ====================
+        function startTimer() {
+            clearInterval(timerInterval);
+            countdownTime = 1800; // 30 minutes
+            
+            updateTimerDisplay();
+            timerInterval = setInterval(updateTimerDisplay, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            countdownTime--;
+            
+            if (countdownTime <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById('timer').textContent = '00:00';
+                document.getElementById('confirmBtn').disabled = true;
+                alert('Waktu pembayaran telah habis. Silakan mulai ulang.');
+                moveToStep(1);
+                return;
+            }
+            
+            const minutes = Math.floor(countdownTime / 60);
+            const seconds = countdownTime % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // ==================== STEP 2: VERIFICATION ====================
+        function setupCodeInputs() {
+            const inputs = document.querySelectorAll('.code-input-custom');
+            
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', function(e) {
+                    const value = e.target.value;
+                    
+                    if (value.length === 1 && /^\d$/.test(value)) {
+                        this.classList.add('code-input-filled');
+                        this.classList.remove('code-input-error');
+                        
+                        // Auto-focus next input
+                        if (index < inputs.length - 1) {
+                            inputs[index + 1].focus();
+                        }
+                        
+                        checkCodeCompletion();
+                        
+                    } else if (value.length === 0) {
+                        this.classList.remove('code-input-filled');
+                    } else {
+                        this.value = '';
+                    }
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+                
+                input.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    const pasteData = e.clipboardData.getData('text').trim();
+                    
+                    if (/^\d{6}$/.test(pasteData)) {
+                        const digits = pasteData.split('');
+                        inputs.forEach((input, idx) => {
+                            if (idx < 6) {
+                                input.value = digits[idx];
+                                input.classList.add('code-input-filled');
+                            }
+                        });
+                        checkCodeCompletion();
+                    }
+                });
+            });
+        }
+        
+        function clearCodeInputs() {
+            const inputs = document.querySelectorAll('.code-input-custom');
+            inputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('code-input-filled', 'code-input-error');
+            });
+            document.getElementById('confirmBtn').disabled = true;
+        }
+        
+        function moveToNext(current, nextIndex) {
+            if (current.value.length === 1 && nextIndex <= 6) {
+                const nextInput = document.querySelector(`.code-input-custom[data-index="${nextIndex}"]`);
+                if (nextInput) nextInput.focus();
+            }
+        }
+        
+        function checkCodeCompletion() {
+            const inputs = document.querySelectorAll('.code-input-custom');
+            let allFilled = true;
+            
+            inputs.forEach(input => {
+                if (input.value.length === 0) {
+                    allFilled = false;
+                }
+            });
+            
+            document.getElementById('confirmBtn').disabled = !allFilled;
+        }
+        
+        async function verifyPayment() {
+            const btn = document.getElementById('confirmBtn');
+            const inputs = document.querySelectorAll('.code-input-custom');
+            
+            let enteredCode = '';
+            inputs.forEach(input => {
+                enteredCode += input.value;
+            });
+            
+            // Get pending transaction
+            const pendingData = JSON.parse(localStorage.getItem('pending_topup') || '{}');
+            const storedCode = pendingData.verificationCode;
+            
+            btn.innerHTML = '<span class="loading-custom me-2"></span> Memverifikasi...';
+            btn.disabled = true;
+            
+            // Simulate verification delay
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            if (Date.now() - pendingData.timestamp > 1800000) { // 30 minutes
+                alert('Waktu pembayaran telah habis. Silakan mulai ulang.');
+                inputs.forEach(input => input.classList.add('code-input-error'));
+                btn.innerHTML = '<i class="bi bi-check-circle me-2"></i> Verifikasi dan Proses';
+                btn.disabled = false;
+                moveToStep(1);
+                return;
+            }
+            
+            if (enteredCode === storedCode) {
+                // Show success modal
+                const modal = new bootstrap.Modal(document.getElementById('successModal'));
+                document.getElementById('modalAmount').textContent = formatCurrency(topupAmount);
+                modal.show();
+                
+                // Process payment
+                processPayment();
+            } else {
+                alert('Kode verifikasi tidak sesuai. Silakan coba lagi.');
+                inputs.forEach(input => input.classList.add('code-input-error'));
+                btn.innerHTML = '<i class="bi bi-check-circle me-2"></i> Verifikasi dan Proses';
+                btn.disabled = false;
+            }
+        }
+
+        // ==================== STEP 3: PROCESS PAYMENT ====================
+        function processPayment() {
+            const pendingData = JSON.parse(localStorage.getItem('pending_topup') || '{}');
+            const topupAmount = pendingData.amount || 0;
+            
+            // Get current balance
+            let currentBalance = parseInt(localStorage.getItem('user_balance') || '0');
+            const newBalance = currentBalance + topupAmount;
+            
+            // Update user balance in localStorage
+            localStorage.setItem('user_balance', newBalance);
+            userBalance = newBalance;
+            
+            // Save transaction to history
+            const transaction = {
+                id: Date.now(),
+                amount: topupAmount,
+                date: new Date().toISOString(),
+                type: 'topup',
+                status: 'success',
+                method: 'Transfer Bank',
+                verificationCode: pendingData.verificationCode,
+                newBalance: newBalance
+            };
+            
+            let transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            transactions.unshift(transaction);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Clear pending data
+            localStorage.removeItem('pending_topup');
+            
+            // Update display
+            document.getElementById('newBalanceValue').textContent = formatCurrency(newBalance);
+            
+            // Clear timer
+            clearInterval(timerInterval);
+            
+            // Close modal and move to success step
+            setTimeout(() => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('successModal'));
+                modal.hide();
+                moveToStep(3);
+            }, 1000);
+        }
+        
+        // Event listener for modal close
+        document.getElementById('successModal').addEventListener('hidden.bs.modal', function () {
+            moveToStep(3);
+        });
+    </script>
+</body>
+</html>

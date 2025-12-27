@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Signalin - Platform penyedia layanan digital untuk paket data, pulsa, dan streaming">
+    <meta name="keywords" content="paket data, pulsa, streaming, top up, internet">
+    <meta name="author" content="Signalin">
+    <title>Signalin - Home</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --primary-gray-light: #F5F5F5;
+            --primary-gray: #808080;
+            --primary-gray-dark: #333333;
+            
+            /* Gold Color Palette */
+            --gold-primary: #D4AF37;
+            --gold-dark: #B8860B;
+            --gold-light: #FFD700;
+            --gold-transparent: rgba(212, 175, 55, 0.1);
+            
+            /* Custom Variables */
+            --bs-primary: #D4AF37;
+            --bs-primary-rgb: 212, 175, 55;
+            --bs-warning: #FFD700;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #000000;
+            color: #FFFFFF;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Gold Theme */
+        .text-primary {
+            color: var(--gold-primary) !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--gold-primary) !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--gold-primary);
+            border-color: var(--gold-primary);
+            color: #000000;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--gold-dark);
+            border-color: var(--gold-dark);
+        }
+        
+        .btn-primary:focus,
+        .btn-outline-primary:focus,
+        .search-bar:focus {
+            outline: 2px solid var(--gold-primary);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+        }
+        
+        .btn-outline-primary {
+            color: var(--gold-primary);
+            border-color: var(--gold-primary);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--gold-primary);
+            border-color: var(--gold-primary);
+            color: #000000;
+        }
+        
+        .border-primary {
+            border-color: var(--gold-primary) !important;
+        }
+        
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            background: #121212;
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 1040;
+            display: none;
+            overflow-y: auto;
+        }
+        
+        @media (min-width: 1200px) {
+            .sidebar {
+                display: block;
+            }
+        }
+        
+        .sidebar-brand {
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--gold-light), var(--gold-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .sidebar-user {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .sidebar-user-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-size: 1.3rem;
+        }
+        
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+        
+        .sidebar-menu .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .sidebar-menu .nav-link:hover,
+        .sidebar-menu .nav-link.active {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: #000000;
+        }
+        
+        /* Main Content Area - PERBAIKAN UTAMA */
+        .main-content {
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (min-width: 1200px) {
+            .main-content {
+                margin-left: 260px;
+            }
+        }
+        
+        /* Navbar - PERBAIKAN UTAMA */
+        .navbar {
+            background: rgba(18, 18, 18, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 0.5rem 1rem;
+            z-index: 1030;
+            flex-shrink: 0;
+        }
+        
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 1rem;
+        }
+        
+        .navbar-brand {
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--gold-light), var(--gold-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+            white-space: nowrap;
+        }
+        
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        
+        /* Search Bar - PERBAIKAN UTAMA */
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .search-bar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #FFFFFF;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border-radius: 8px;
+            height: 40px;
+            font-size: 0.9rem;
+        }
+        
+        .search-bar:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--gold-primary);
+            color: #FFFFFF;
+            box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-primary);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            margin-top: 0.25rem;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1050;
+            display: none;
+        }
+        
+        .search-results.show {
+            display: block;
+        }
+        
+        /* Mobile Search */
+        .mobile-search-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #121212;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: none;
+            z-index: 1060;
+        }
+        
+        .mobile-search-container.show {
+            display: block;
+        }
+        
+        /* Page Content */
+        .page-content {
+            flex: 1;
+            padding: 1rem 1rem 2rem 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .page-content {
+                padding: 1.5rem 1.5rem 3rem 1.5rem;
+            }
+        }
+        
+        /* Custom Cards */
+        .custom-card {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .welcome-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+        
+        .balance-card {
+            text-align: center;
+        }
+        
+        .balance-amount {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--gold-light), var(--gold-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .balance-amount::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            border-radius: 3px;
+        }
+        
+        /* Quick Actions */
+        .quick-action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .quick-action-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.1);
+            text-decoration: none;
+        }
+        
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-action-item:hover .action-icon {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            color: #000000;
+            transform: scale(1.1);
+        }
+        
+        /* Promo Slider */
+        .promo-slider {
+            height: 320px;
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            .promo-slider {
+                height: 350px;
+            }
+        }
+        
+        .promo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: #000000;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        /* Packages Slider */
+        .package-card {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .package-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: #000000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        
+        /* Status Items */
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .status-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+            box-shadow: 0 0 10px #4CAF50;
+        }
+        
+        .status-indicator.warning {
+            background: #FF9800;
+            box-shadow: 0 0 10px #FF9800;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #121212;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            margin-top: auto;
+        }
+        
+        .footer-brand {
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--gold-light), var(--gold-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Mobile Sidebar */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 300px;
+            height: 100vh;
+            background: #121212;
+            z-index: 1060;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+        
+        .mobile-sidebar.show {
+            left: 0;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1059;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+        
+        .sidebar-overlay.show {
+            display: block;
+        }
+        
+        /* Dock */
+        .dock-container {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1030;
+            width: auto;
+        }
+        
+        @media (min-width: 1200px) {
+            .dock-container {
+                left: calc(50% + 130px);
+            }
+        }
+        
+        .dock-bar {
+            background: rgba(29, 29, 29, 0.95);
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .dock-icon {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.4rem;
+            text-decoration: none;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .dock-icon:hover,
+        .dock-icon.active {
+            color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateY(-5px);
+            text-decoration: none;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 5rem;
+            right: 1rem;
+            z-index: 1100;
+            max-width: 350px;
+            border-left: 5px solid var(--gold-primary);
+            animation: slideInRight 0.3s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Loading Spinner */
+        #loadingSpinner {
+            z-index: 9999;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-light);
+        }
+        
+        /* Prefers Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .sidebar,
+            .navbar,
+            .dock-container,
+            .footer,
+            .notification,
+            #loadingSpinner {
+                display: none !important;
+            }
+            
+            .main-content {
+                margin-left: 0 !important;
+                padding-top: 0 !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .custom-card {
+                border: 1px solid #ccc !important;
+                background: white !important;
+            }
+            
+            .text-primary {
+                color: #000000 !important;
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .balance-amount {
+                font-size: 2rem;
+            }
+            
+            .search-container {
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-content {
+                gap: 0.5rem;
+            }
+            
+            .search-container {
+                max-width: 200px;
+            }
+            
+            .balance-amount {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="position-fixed top-50 start-50 translate-middle" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" role="navigation" aria-label="Navigasi utama">
+        <a href="home.html" class="sidebar-brand" aria-label="Signalin Home">Signalin</a>
+        
+        <div class="sidebar-user d-flex align-items-center gap-3 px-3 py-3">
+            <div class="sidebar-user-avatar" aria-hidden="true">
+                <i class="bi bi-person-fill"></i>
+            </div>
+            <div>
+                <h6 class="mb-0" id="sidebarUserName">lulu</h6>
+                <small class="text-muted" id="sidebarUserPhone">Q852 •••• 2995</small>
+            </div>
+        </div>
+        
+        <div class="sidebar-menu">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="home.html" aria-current="page">
+                        <i class="bi bi-house-door" aria-hidden="true"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="topup.html">
+                        <i class="bi bi-wallet" aria-hidden="true"></i>
+                        <span>Top Up Saldo</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="riwayat.html">
+                        <i class="bi bi-clock-history" aria-hidden="true"></i>
+                        <span>Riwayat Top Up</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="transaksi.html">
+                        <i class="bi bi-receipt" aria-hidden="true"></i>
+                        <span>Riwayat Transaksi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="internet.html">
+                        <i class="bi bi-wifi" aria-hidden="true"></i>
+                        <span>Paket Data</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pulsa.html">
+                        <i class="bi bi-phone" aria-hidden="true"></i>
+                        <span>Pulsa</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="streaming.html">
+                        <i class="bi bi-play-circle" aria-hidden="true"></i>
+                        <span>Streaming</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">
+                        <i class="bi bi-person-circle" aria-hidden="true"></i>
+                        <span>Profil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pusat.html">
+                        <i class="bi bi-question-circle" aria-hidden="true"></i>
+                        <span>Pusat Bantuan</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="mt-auto p-3">
+            <button class="btn btn-outline-primary w-100" onclick="logout()" aria-label="Keluar dari akun">
+                <i class="bi bi-box-arrow-left me-2"></i>
+                Logout
+            </button>
+        </div>
+    </aside>
+    
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Mobile Sidebar -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="d-flex flex-column h-100">
+            <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                <h2 class="h4 mb-0 text-primary">Menu</h2>
+                <button class="btn btn-link text-primary p-0" onclick="closeMobileSidebar()" aria-label="Tutup menu">
+                    <i class="bi bi-x-lg fs-4"></i>
+                </button>
+            </div>
+            
+            <div class="flex-grow-1 p-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="home.html">
+                            <i class="bi bi-house-door me-3"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="topup.html">
+                            <i class="bi bi-wallet me-3"></i>
+                            <span>Top Up Saldo</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="riwayat.html">
+                            <i class="bi bi-clock-history me-3"></i>
+                            <span>Riwayat Top Up</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="transaksi.html">
+                            <i class="bi bi-receipt me-3"></i>
+                            <span>Riwayat Transaksi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="internet.html">
+                            <i class="bi bi-wifi me-3"></i>
+                            <span>Paket Data</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pulsa.html">
+                            <i class="bi bi-phone me-3"></i>
+                            <span>Pulsa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="streaming.html">
+                            <i class="bi bi-play-circle me-3"></i>
+                            <span>Streaming</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="mt-5">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html">
+                                <i class="bi bi-person-circle me-3"></i>
+                                <span>Profil</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pusat.html">
+                                <i class="bi bi-question-circle me-3"></i>
+                                <span>Pusat Bantuan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="p-3 border-top">
+                <button class="btn btn-outline-primary w-100" onclick="logout()">
+                    <i class="bi bi-box-arrow-left me-2"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Navbar - STRUKTUR SEDERHANA -->
+        <nav class="navbar" aria-label="Navigasi atas">
+            <div class="navbar-content">
+                <!-- Hamburger Menu (Mobile) -->
+                <button class="btn btn-link text-primary me-2 d-lg-none" 
+                        onclick="toggleMobileSidebar()"
+                        aria-label="Buka menu navigasi"
+                        aria-controls="mobileSidebar"
+                        aria-expanded="false">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
+                
+                <!-- Brand (Mobile) -->
+                <a class="navbar-brand d-lg-none" href="home.html" aria-label="Signalin Home">Signalin</a>
+                
+                <!-- Search Bar (Desktop & Tablet) -->
+                <div class="search-container d-none d-md-block">
+                    <i class="bi bi-search search-icon" aria-hidden="true"></i>
+                    <input type="text" class="form-control search-bar" id="searchBar" 
+                           placeholder="Cari paket data, pulsa, streaming..."
+                           aria-label="Cari produk">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                
+                <!-- Right Section -->
+                <div class="d-flex align-items-center ms-auto">
+                    <!-- Search Button (Mobile) -->
+                    <button class="btn btn-link text-primary d-md-none me-2" onclick="toggleMobileSearch()" aria-label="Buka pencarian">
+                        <i class="bi bi-search fs-4"></i>
+                    </button>
+                    
+                    <!-- Profile -->
+                    <a href="profile.html" class="profile-avatar" aria-label="Profil pengguna">
+                        <i class="bi bi-person-fill"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Search Container -->
+        <div class="mobile-search-container" id="mobileSearch">
+            <div class="position-relative">
+                <button class="btn btn-link text-primary position-absolute top-50 start-0 translate-middle-y" 
+                        onclick="toggleMobileSearch()"
+                        aria-label="Tutup pencarian">
+                    <i class="bi bi-arrow-left fs-4"></i>
+                </button>
+                <input type="text" class="form-control ps-5 search-bar" 
+                       placeholder="Cari paket data, pulsa, streaming..." 
+                       aria-label="Cari produk" 
+                       id="mobileSearchInput">
+                <div class="search-results" id="mobileSearchResults"></div>
+            </div>
+        </div>
+        
+        <!-- Page Content -->
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- Welcome Card -->
+                <section class="row g-3 mb-4">
+                    <div class="col-12">
+                        <article class="custom-card welcome-card p-4">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h1 class="mb-2">Halo, <span class="text-primary" id="userName">lulu</span>!</h1>
+                                    <p class="text-muted mb-3">Selamat datang kembali di Signalin Premium</p>
+                                    
+                                    <div class="d-flex align-items-center gap-3 mb-4">
+                                        <span class="badge bg-primary text-dark px-3 py-2">
+                                            <i class="bi bi-star-fill me-1"></i>
+                                            <span id="userType">PRIORITY MEMBER</span>
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3 mb-md-0">
+                                            <div class="text-center">
+                                                <h3 class="text-primary mb-1" id="userPoints">1.250</h3>
+                                                <small class="text-muted">Poin Reward</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3 mb-md-0">
+                                            <div class="text-center">
+                                                <h3 class="text-primary mb-1" id="userActiveDays">30</h3>
+                                                <small class="text-muted">Hari Aktif</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="text-center">
+                                                <h3 class="text-primary mb-1" id="userBalance">Rp 825.000</h3>
+                                                <small class="text-muted">Saldo Tersedia</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center text-md-end">
+                                    <div class="welcome-avatar d-inline-flex align-items-center justify-content-center bg-primary rounded-circle" 
+                                         style="width: 90px; height: 90px;" 
+                                         onclick="window.location.href='profile.html'"
+                                         role="button"
+                                         tabindex="0"
+                                         aria-label="Lihat profil"
+                                         onkeypress="if(event.key === 'Enter') window.location.href='profile.html'">
+                                        <i class="bi bi-person-fill fs-3 text-dark"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    
+                    <!-- Balance Card -->
+                    <div class="col-lg-8">
+                        <article class="custom-card balance-card p-4 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="h5 mb-0 text-primary">
+                                    <i class="bi bi-wallet me-2"></i>
+                                    Saldo Utama
+                                </h2>
+                                <small class="text-muted" id="userPhone">Q852 •••• 2995</small>
+                            </div>
+                            
+                            <h1 class="balance-amount mb-4" id="mainBalance" aria-live="polite">Rp 825.000</h1>
+                            
+                            <button class="btn btn-primary btn-lg w-100" onclick="window.location.href='topup.html'" aria-label="Top up saldo">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Top Up Saldo
+                            </button>
+                        </article>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="col-lg-4">
+                        <article class="custom-card p-4 h-100">
+                            <h2 class="h5 text-primary mb-4">
+                                <i class="bi bi-graph-up me-2"></i>
+                                Statistik Bulan Ini
+                            </h2>
+                            
+                            <div class="row text-center">
+                                <div class="col-6 mb-3">
+                                    <h3 class="text-primary mb-1" id="transaksiCount">8</h3>
+                                    <small class="text-muted">Transaksi</small>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <h3 class="text-primary mb-1" id="totalSpent">Rp 125K</h3>
+                                    <small class="text-muted">Pengeluaran</small>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <a href="riwayat.html" class="btn btn-outline-primary w-100">
+                                    <i class="bi bi-clock-history me-2"></i>
+                                    Lihat Riwayat
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                
+                <!-- Quick Actions -->
+                <section class="row g-3 mb-4">
+                    <div class="col-12">
+                        <article class="custom-card p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="h5 mb-0 text-primary">
+                                    <i class="bi bi-lightning-charge me-2"></i>
+                                    Layanan Cepat
+                                </h2>
+                            </div>
+                            
+                            <div class="row g-3">
+                                <div class="col-6 col-md-4 col-lg-2">
+                                    <a href="pulsa.html" class="quick-action-item" aria-label="Isi pulsa">
+                                        <div class="action-icon">
+                                            <i class="bi bi-phone"></i>
+                                        </div>
+                                        <span class="text-center">Isi Pulsa</span>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg-2">
+                                    <a href="internet.html" class="quick-action-item" aria-label="Beli paket data">
+                                        <div class="action-icon">
+                                            <i class="bi bi-wifi"></i>
+                                        </div>
+                                        <span class="text-center">Paket Data</span>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg-2">
+                                    <a href="streaming.html" class="quick-action-item" aria-label="Langganan streaming">
+                                        <div class="action-icon">
+                                            <i class="bi bi-play-circle"></i>
+                                        </div>
+                                        <span class="text-center">Streaming</span>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg-2">
+                                    <a href="nonton.html" class="quick-action-item" aria-label="Paket nonton">
+                                        <div class="action-icon">
+                                            <i class="bi bi-tv"></i>
+                                        </div>
+                                        <span class="text-center">Nonton</span>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg-2">
+                                    <a href="wifi.html" class="quick-action-item" aria-label="Paket WiFi">
+                                        <div class="action-icon">
+                                            <i class="bi bi-wifi"></i>
+                                        </div>
+                                        <span class="text-center">Wifi</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                
+                <!-- Promo & Status Section -->
+                <section class="row g-3 mb-4">
+                    <!-- Promo Slider -->
+                    <div class="col-lg-8">
+                        <article class="custom-card p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="h5 mb-0 text-primary">
+                                    <i class="bi bi-gift me-2"></i>
+                                    Promo & Penawaran
+                                </h2>
+                                <div id="promoSliderDots" class="d-flex gap-1" role="tablist"></div>
+                            </div>
+                            
+                            <div class="promo-slider position-relative" id="promoSlider">
+                                <div id="promoSliderTrack" class="h-100" role="tabpanel"></div>
+                                
+                                <button class="btn btn-sm btn-outline-primary position-absolute top-50 start-0 translate-middle-y ms-2" 
+                                        onclick="prevPromo()"
+                                        aria-label="Slide sebelumnya">
+                                    <i class="bi bi-chevron-left"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary position-absolute top-50 end-0 translate-middle-y me-2" 
+                                        onclick="nextPromo()"
+                                        aria-label="Slide berikutnya">
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                    
+                    <!-- Service Status -->
+                    <div class="col-lg-4">
+                        <article class="custom-card p-4 h-100">
+                            <h2 class="h5 text-primary mb-4">
+                                <i class="bi bi-clipboard-data me-2"></i>
+                                Status Layanan
+                            </h2>
+                            
+                            <div class="d-flex flex-column gap-2">
+                                <div class="status-item">
+                                    <div class="status-indicator" aria-hidden="true"></div>
+                                    <div class="flex-grow-1">Jaringan Internet</div>
+                                    <div class="text-primary">Normal</div>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-indicator" aria-hidden="true"></div>
+                                    <div class="flex-grow-1">Sistem Transaksi</div>
+                                    <div class="text-primary">Aktif</div>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-indicator warning" aria-hidden="true"></div>
+                                    <div class="flex-grow-1">Maintenance</div>
+                                    <div class="text-primary">00:00-06:00</div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <a href="pusat.html" class="btn btn-outline-primary w-100">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Info Layanan
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                
+                <!-- Trending Packages -->
+                <section class="row g-3 mb-4">
+                    <div class="col-12">
+                        <article class="custom-card p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="h5 mb-0 text-primary">
+                                    <i class="bi bi-fire me-2"></i>
+                                    Paket Terpopuler
+                                </h2>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="prevPackage()" aria-label="Paket sebelumnya">
+                                        <i class="bi bi-chevron-left"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="nextPackage()" aria-label="Paket berikutnya">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3" id="packagesSlider">
+                                <!-- Packages will be loaded here -->
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                
+                <!-- Quick Links -->
+                <section class="row g-3">
+                    <div class="col-12">
+                        <article class="custom-card p-4">
+                            <h2 class="h5 text-primary mb-4">
+                                <i class="bi bi-link me-2"></i>
+                                Tautan Cepat
+                            </h2>
+                            
+                            <div class="row g-3">
+                                <div class="col-6 col-md-3">
+                                    <a href="riwayat.html" class="btn btn-outline-primary w-100 h-100 py-3">
+                                        <i class="bi bi-clock-history d-block fs-4 mb-2"></i>
+                                        <span>Riwayat</span>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <a href="topup.html" class="btn btn-outline-primary w-100 h-100 py-3">
+                                        <i class="bi bi-wallet d-block fs-4 mb-2"></i>
+                                        <span>Top Up</span>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <a href="pusat.html" class="btn btn-outline-primary w-100 h-100 py-3">
+                                        <i class="bi bi-question-circle d-block fs-4 mb-2"></i>
+                                        <span>Bantuan</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer py-5" role="contentinfo">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3 mb-4 mb-md-0">
+                        <h2 class="footer-brand mb-3">Signalin</h2>
+                        <p class="text-muted small">
+                            Platform penyedia layanan digital terpercaya dengan berbagai pilihan paket internet, pulsa, dan layanan digital lainnya.
+                        </p>
+                    </div>
+                    
+                    <div class="col-md-3 mb-4 mb-md-0">
+                        <h3 class="text-primary mb-3">Layanan</h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="internet.html" class="text-muted text-decoration-none">Paket Data</a></li>
+                            <li class="mb-2"><a href="pulsa.html" class="text-muted text-decoration-none">Pulsa</a></li>
+                            <li class="mb-2"><a href="streaming.html" class="text-muted text-decoration-none">Streaming</a></li>
+                            <li class="mb-2"><a href="topup.html" class="text-muted text-decoration-none">Top Up Saldo</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-3 mb-4 mb-md-0">
+                        <h3 class="text-primary mb-3">Perusahaan</h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="about.html" class="text-muted text-decoration-none">Tentang Kami</a></li>
+                            <li class="mb-2"><a href="contact.html" class="text-muted text-decoration-none">Kontak</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <h3 class="text-primary mb-3">Bantuan</h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="pusat.html" class="text-muted text-decoration-none">Pusat Bantuan</a></li>
+                            <li class="mb-2"><a href="faq.html" class="text-muted text-decoration-none">FAQ</a></li>
+                            <li class="mb-2"><a href="riwayat.html" class="text-muted text-decoration-none">Riwayat Transaksi</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="row mt-4 pt-4 border-top border-secondary">
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-0">
+                            &copy; <span id="currentYear">2024</span> Signalin. All rights reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <div class="d-flex gap-3 justify-content-md-end">
+                            <a href="#" class="text-muted" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="text-muted" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="text-muted" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    
+    <!-- Dock -->
+    <nav class="dock-container" aria-label="Navigasi cepat">
+        <div class="dock-bar d-flex gap-3">
+            <a href="home.html" class="dock-icon active" aria-label="Home" aria-current="page">
+                <i class="bi bi-house-door"></i>
+            </a>
+            <a href="internet.html" class="dock-icon" aria-label="Paket data">
+                <i class="bi bi-wifi"></i>
+            </a>
+            <a href="pulsa.html" class="dock-icon" aria-label="Pulsa">
+                <i class="bi bi-phone"></i>
+            </a>
+            <a href="riwayat.html" class="dock-icon" aria-label="Riwayat">
+                <i class="bi bi-clock-history"></i>
+            </a>
+            <a href="profile.html" class="dock-icon" aria-label="Profil">
+                <i class="bi bi-person"></i>
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Notification Toast -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" id="notification">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <div id="notificationTitle" class="fw-bold">Berhasil</div>
+                    <div id="notificationMessage" class="small">Operasi berhasil diselesaikan</div>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Tutup"></button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    
+    <script>
+        // =========== DATA ===========
+        const searchProducts = [
+            { name: "Paket Data 1GB", category: "internet", price: "Rp 10.000", page: "internet.html", icon: "wifi", description: "Paket data 1GB untuk 1 hari" },
+            { name: "Paket Data 3GB", category: "internet", price: "Rp 25.000", page: "internet.html", icon: "wifi", description: "Paket data 3GB untuk 7 hari" },
+            { name: "Paket Data 10GB", category: "internet", price: "Rp 50.000", page: "internet.html", icon: "wifi", description: "Paket data 10GB untuk 30 hari" },
+            { name: "Paket Data 20GB", category: "internet", price: "Rp 75.000", page: "internet.html", icon: "wifi", description: "Paket data 20GB untuk 30 hari" },
+            { name: "Paket Unlimited", category: "internet", price: "Rp 100.000", page: "internet.html", icon: "wifi", description: "Paket data unlimited untuk 30 hari" },
+            { name: "Pulsa 5.000", category: "pulsa", price: "Rp 5.000", page: "pulsa.html", icon: "phone", description: "Pulsa reguler 5.000" },
+            { name: "Pulsa 10.000", category: "pulsa", price: "Rp 10.000", page: "pulsa.html", icon: "phone", description: "Pulsa reguler 10.000" },
+            { name: "Pulsa 25.000", category: "pulsa", price: "Rp 25.000", page: "pulsa.html", icon: "phone", description: "Pulsa reguler 25.000" },
+            { name: "Pulsa 50.000", category: "pulsa", price: "Rp 50.000", page: "pulsa.html", icon: "phone", description: "Pulsa reguler 50.000" },
+            { name: "Pulsa 100.000", category: "pulsa", price: "Rp 100.000", page: "pulsa.html", icon: "phone", description: "Pulsa reguler 100.000" },
+            { name: "Netflix Basic", category: "streaming", price: "Rp 54.000", page: "streaming.html", icon: "play-circle", description: "Netflix Basic 1 bulan" },
+            { name: "Netflix Premium", category: "streaming", price: "Rp 186.000", page: "streaming.html", icon: "play-circle", description: "Netflix Premium 1 bulan" },
+            { name: "Disney+", category: "streaming", price: "Rp 45.000", page: "streaming.html", icon: "play-circle", description: "Disney+ 1 bulan" },
+            { name: "Spotify Premium", category: "streaming", price: "Rp 49.990", page: "streaming.html", icon: "music-note", description: "Spotify Premium 1 bulan" },
+            { name: "YouTube Premium", category: "streaming", price: "Rp 65.000", page: "streaming.html", icon: "youtube", description: "YouTube Premium 1 bulan" }
+        ];
+        
+        const promoData = [
+            {
+                title: "Paket Data Spesial",
+                description: "Dapatkan kuota 20GB hanya Rp 40.000! Promo terbatas hingga akhir bulan.",
+                currentPrice: "Rp 40.000",
+                originalPrice: "Rp 75.000",
+                badge: "TERBARU"
+            },
+            {
+                title: "Cashback 20%",
+                description: "Setiap pembelian pulsa dapat cashback hingga 20%. Berlaku untuk semua operator.",
+                currentPrice: "Cashback 20%",
+                originalPrice: "",
+                badge: "CASHBACK"
+            },
+            {
+                title: "Diskon Akhir Tahun",
+                description: "Diskon hingga 50% untuk semua paket data. Buruan sebelum kehabisan!",
+                currentPrice: "Diskon 50%",
+                originalPrice: "",
+                badge: "DISKON"
+            },
+            {
+                title: "Bundle Streaming",
+                description: "Netflix + Spotify + YouTube Premium hanya Rp 150.000! Hemat hingga 30%.",
+                currentPrice: "Rp 150.000",
+                originalPrice: "Rp 215.000",
+                badge: "BUNDLE"
+            }
+        ];
+        
+        const packagesData = [
+            {
+                id: 1,
+                name: "Paket Data 10GB",
+                description: "Paket data 10GB untuk 30 hari dengan kecepatan maksimal. Cocok untuk streaming dan browsing.",
+                quota: "10 GB",
+                duration: "30 Hari",
+                price: 50000,
+                formattedPrice: "Rp 50.000",
+                icon: "wifi",
+                badge: "TERLARIS",
+                type: "internet",
+                category: "Paket Data"
+            },
+            {
+                id: 2,
+                name: "Pulsa 25.000",
+                description: "Pulsa reguler 25.000 untuk semua operator. Proses instan dan garansi 100%.",
+                quota: "25.000",
+                duration: "Tidak Terbatas",
+                price: 25000,
+                formattedPrice: "Rp 25.000",
+                icon: "phone",
+                badge: "INSTAN",
+                type: "pulsa",
+                category: "Pulsa"
+            },
+            {
+                id: 3,
+                name: "Netflix Basic",
+                description: "Langganan Netflix Basic 1 bulan. Tonton tanpa batas di 1 perangkat.",
+                quota: "1 Bulan",
+                duration: "30 Hari",
+                price: 54000,
+                formattedPrice: "Rp 54.000",
+                icon: "play-circle",
+                badge: "STREAMING",
+                type: "streaming",
+                category: "Langganan"
+            },
+            {
+                id: 4,
+                name: "Paket Data 20GB",
+                description: "Paket data 20GB dengan bonus kuota malam 10GB. Unlimited sosial media.",
+                quota: "20 GB",
+                duration: "30 Hari",
+                price: 75000,
+                formattedPrice: "Rp 75.000",
+                icon: "wifi",
+                badge: "PREMIUM",
+                type: "internet",
+                category: "Paket Data"
+            },
+            {
+                id: 5,
+                name: "Spotify Premium",
+                description: "Langganan Spotify Premium 1 bulan. Dengarkan musik tanpa iklan.",
+                quota: "1 Bulan",
+                duration: "30 Hari",
+                price: 49990,
+                formattedPrice: "Rp 49.990",
+                icon: "music-note",
+                badge: "MUSIK",
+                type: "streaming",
+                category: "Langganan"
+            },
+            {
+                id: 6,
+                name: "Paket Data 5GB",
+                description: "Paket data 5GB untuk 7 hari. Cocok untuk penggunaan ringan.",
+                quota: "5 GB",
+                duration: "7 Hari",
+                price: 35000,
+                formattedPrice: "Rp 35.000",
+                icon: "wifi",
+                badge: "HEMAT",
+                type: "internet",
+                category: "Paket Data"
+            }
+        ];
+        
+        // =========== GLOBAL VARIABLES ===========
+        let currentPromoIndex = 0;
+        let currentPackagePage = 0;
+        const packagesPerPage = 3;
+        let searchTimeout;
+        let promoInterval;
+        let mobileSearchTimeout;
+        
+        // =========== INITIALIZATION ===========
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                showLoading();
+                initPromoSlider();
+                initPackages();
+                initSearch();
+                initMobileSearch();
+                initMobileSidebar();
+                loadUserData();
+                loadTransactionStats();
+                updateCurrentYear();
+                showPackagePage(0);
+                
+                // Setup auto slide dengan error handling
+                setupPromoAutoSlide();
+                
+                setTimeout(hideLoading, 500);
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showNotification('error', 'Error', 'Gagal memuat halaman');
+                hideLoading();
+            }
+        });
+        
+        // =========== LOADING STATE ===========
+        function showLoading() {
+            const spinner = document.getElementById('loadingSpinner');
+            if (spinner) spinner.style.display = 'block';
+        }
+        
+        function hideLoading() {
+            const spinner = document.getElementById('loadingSpinner');
+            if (spinner) spinner.style.display = 'none';
+        }
+        
+        // =========== UTILITY FUNCTIONS ===========
+        function updateCurrentYear() {
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        }
+        
+        function validateSearch(query) {
+            if (query.length < 2) {
+                showNotification('warning', 'Pencarian', 'Masukkan minimal 2 karakter');
+                return false;
+            }
+            
+            // Basic XSS prevention
+            const cleanQuery = query.replace(/[<>]/g, '');
+            return cleanQuery;
+        }
+        
+        // =========== PROMO SLIDER ===========
+        function initPromoSlider() {
+            try {
+                const track = document.getElementById('promoSliderTrack');
+                const dots = document.getElementById('promoSliderDots');
+                
+                if (!track) return;
+                
+                track.innerHTML = promoData.map((promo, index) => `
+                    <div class="h-100 d-flex flex-column justify-content-center align-items-center p-5 ${index === 0 ? '' : 'd-none'}" 
+                         id="promoSlide${index}"
+                         role="tabpanel"
+                         aria-labelledby="promoTab${index}">
+                        <span class="promo-badge">${promo.badge}</span>
+                        <h3 class="text-center my-3">${promo.title}</h3>
+                        <p class="text-center text-muted mb-4">${promo.description}</p>
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <h2 class="text-primary mb-0">${promo.currentPrice}</h2>
+                            ${promo.originalPrice ? `<s class="text-muted">${promo.originalPrice}</s>` : ''}
+                        </div>
+                        <button class="btn btn-primary" 
+                                onclick="showNotification('success', 'Promo', 'Detail promo akan ditampilkan')"
+                                aria-label="Lihat detail promo ${promo.title}">
+                            Lihat Detail
+                        </button>
+                    </div>
+                `).join('');
+                
+                dots.innerHTML = promoData.map((_, index) => `
+                    <button class="btn btn-sm ${index === 0 ? 'btn-primary' : 'btn-outline-primary'}" 
+                            onclick="goToPromo(${index})"
+                            id="promoTab${index}"
+                            role="tab"
+                            aria-controls="promoSlide${index}"
+                            aria-selected="${index === 0}">
+                        •
+                    </button>
+                `).join('');
+            } catch (error) {
+                console.error('Error initializing promo slider:', error);
+            }
+        }
+        
+        function goToPromo(index) {
+            try {
+                // Hide current slide
+                const currentSlide = document.getElementById(`promoSlide${currentPromoIndex}`);
+                if (currentSlide) currentSlide.classList.add('d-none');
+                
+                // Update dots
+                document.querySelectorAll('#promoSliderDots .btn').forEach((btn, i) => {
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('btn-outline-primary');
+                    btn.setAttribute('aria-selected', 'false');
+                    if (i === index) {
+                        btn.classList.remove('btn-outline-primary');
+                        btn.classList.add('btn-primary');
+                        btn.setAttribute('aria-selected', 'true');
+                    }
+                });
+                
+                // Show new slide
+                currentPromoIndex = index;
+                const newSlide = document.getElementById(`promoSlide${currentPromoIndex}`);
+                if (newSlide) newSlide.classList.remove('d-none');
+                
+                // Reset auto slide timer
+                resetPromoAutoSlide();
+            } catch (error) {
+                console.error('Error in goToPromo:', error);
+            }
+        }
+        
+        function prevPromo() {
+            const newIndex = (currentPromoIndex - 1 + promoData.length) % promoData.length;
+            goToPromo(newIndex);
+        }
+        
+        function nextPromo() {
+            const newIndex = (currentPromoIndex + 1) % promoData.length;
+            goToPromo(newIndex);
+        }
+        
+        function setupPromoAutoSlide() {
+            if (promoInterval) clearInterval(promoInterval);
+            promoInterval = setInterval(nextPromo, 5000);
+        }
+        
+        function resetPromoAutoSlide() {
+            if (promoInterval) clearInterval(promoInterval);
+            setupPromoAutoSlide();
+        }
+        
+        // =========== PACKAGES ===========
+        function initPackages() {
+            try {
+                const container = document.getElementById('packagesSlider');
+                
+                if (!container) return;
+                
+                container.innerHTML = packagesData.map(pkg => `
+                    <div class="col-md-6 col-lg-4">
+                        <article class="package-card position-relative">
+                            <span class="package-badge">${pkg.badge}</span>
+                            <div class="text-center mb-3">
+                                <div class="action-icon d-inline-flex">
+                                    <i class="bi bi-${pkg.icon}"></i>
+                                </div>
+                            </div>
+                            <h3 class="h5 text-center mb-2">${pkg.name}</h3>
+                            <p class="text-center text-muted small mb-3">${pkg.description}</p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-primary mb-0">${pkg.quota}</h4>
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    ${pkg.duration}
+                                </small>
+                            </div>
+                            <h4 class="text-center mb-3">${pkg.formattedPrice}</h4>
+                            <button class="btn btn-primary w-100" 
+                                    onclick="buyPackage(${pkg.id})"
+                                    aria-label="Beli ${pkg.name} seharga ${pkg.formattedPrice}">
+                                <i class="bi bi-cart me-2"></i>
+                                Beli Sekarang
+                            </button>
+                        </article>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error initializing packages:', error);
+            }
+        }
+        
+        function prevPackage() {
+            try {
+                const packages = document.querySelectorAll('#packagesSlider .col-md-6');
+                const totalPages = Math.ceil(packages.length / packagesPerPage);
+                
+                currentPackagePage = (currentPackagePage - 1 + totalPages) % totalPages;
+                showPackagePage(currentPackagePage);
+            } catch (error) {
+                console.error('Error in prevPackage:', error);
+            }
+        }
+        
+        function nextPackage() {
+            try {
+                const packages = document.querySelectorAll('#packagesSlider .col-md-6');
+                const totalPages = Math.ceil(packages.length / packagesPerPage);
+                
+                currentPackagePage = (currentPackagePage + 1) % totalPages;
+                showPackagePage(currentPackagePage);
+            } catch (error) {
+                console.error('Error in nextPackage:', error);
+            }
+        }
+        
+        function showPackagePage(page) {
+            try {
+                const packages = document.querySelectorAll('#packagesSlider .col-md-6');
+                const start = page * packagesPerPage;
+                const end = start + packagesPerPage;
+                
+                packages.forEach((pkg, index) => {
+                    if (index >= start && index < end) {
+                        pkg.classList.remove('d-none');
+                    } else {
+                        pkg.classList.add('d-none');
+                    }
+                });
+            } catch (error) {
+                console.error('Error in showPackagePage:', error);
+            }
+        }
+        
+        // =========== BUY PACKAGE ===========
+        function buyPackage(packageId) {
+            try {
+                const selectedPackage = packagesData.find(pkg => pkg.id === packageId);
+                
+                if (!selectedPackage) {
+                    showNotification('error', 'Error', 'Paket tidak ditemukan!');
+                    return;
+                }
+                
+                const userBalance = parseInt(localStorage.getItem('user_balance') || '825000');
+                
+                if (userBalance < selectedPackage.price) {
+                    showNotification('error', 'Saldo Tidak Cukup', `Saldo Anda Rp ${userBalance.toLocaleString('id-ID')}. Silakan top up saldo terlebih dahulu.`);
+                    return;
+                }
+                
+                // Save package data to localStorage
+                localStorage.setItem('selected_package_id', selectedPackage.id);
+                localStorage.setItem('selected_package_name', selectedPackage.name);
+                localStorage.setItem('selected_package_formatted_price', selectedPackage.formattedPrice);
+                localStorage.setItem('selected_package_price', selectedPackage.price);
+                localStorage.setItem('selected_package_quota', selectedPackage.quota);
+                localStorage.setItem('selected_package_duration', selectedPackage.duration);
+                localStorage.setItem('selected_package_type', selectedPackage.type);
+                localStorage.setItem('selected_package_category', selectedPackage.category);
+                localStorage.setItem('selected_package_description', selectedPackage.description);
+                localStorage.setItem('selected_package_icon', selectedPackage.icon);
+                
+                console.log('Paket yang dipilih:', selectedPackage.name);
+                
+                // Redirect to payment page
+                window.location.href = 'payment.html';
+            } catch (error) {
+                console.error('Error in buyPackage:', error);
+                showNotification('error', 'Error', 'Gagal memproses pembelian');
+            }
+        }
+        
+        // =========== SEARCH FUNCTIONALITY (DESKTOP) ===========
+        function initSearch() {
+            try {
+                const searchBar = document.getElementById('searchBar');
+                const searchResults = document.getElementById('searchResults');
+                
+                if (!searchBar) return;
+                
+                searchBar.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    
+                    const rawQuery = this.value;
+                    const validatedQuery = validateSearch(rawQuery);
+                    
+                    if (!validatedQuery) {
+                        searchResults.classList.remove('show');
+                        return;
+                    }
+                    
+                    searchTimeout = setTimeout(() => {
+                        const query = validatedQuery.toLowerCase().trim();
+                        
+                        if (query.length === 0) {
+                            searchResults.classList.remove('show');
+                            return;
+                        }
+                        
+                        const filtered = searchProducts.filter(product => {
+                            const searchText = (product.name + ' ' + product.description + ' ' + product.category).toLowerCase();
+                            return searchText.includes(query);
+                        });
+                        
+                        displaySearchResults(filtered, searchResults);
+                        searchResults.classList.add('show');
+                    }, 300);
+                });
+                
+                document.addEventListener('click', function(event) {
+                    if (!searchBar.contains(event.target) && !searchResults.contains(event.target)) {
+                        searchResults.classList.remove('show');
+                    }
+                });
+                
+                searchBar.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && this.value.trim()) {
+                        const query = validateSearch(this.value.trim());
+                        if (query) {
+                            showNotification('info', 'Pencarian', `Mencari "${query}"...`);
+                            searchResults.classList.remove('show');
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error initializing search:', error);
+            }
+        }
+        
+        // =========== MOBILE SEARCH FUNCTIONALITY ===========
+        function initMobileSearch() {
+            try {
+                const mobileSearchInput = document.getElementById('mobileSearchInput');
+                const mobileSearchResults = document.getElementById('mobileSearchResults');
+                
+                if (!mobileSearchInput) return;
+                
+                mobileSearchInput.addEventListener('input', function() {
+                    clearTimeout(mobileSearchTimeout);
+                    
+                    const rawQuery = this.value;
+                    const validatedQuery = validateSearch(rawQuery);
+                    
+                    if (!validatedQuery) {
+                        mobileSearchResults.classList.remove('show');
+                        return;
+                    }
+                    
+                    mobileSearchTimeout = setTimeout(() => {
+                        const query = validatedQuery.toLowerCase().trim();
+                        
+                        if (query.length === 0) {
+                            mobileSearchResults.classList.remove('show');
+                            return;
+                        }
+                        
+                        const filtered = searchProducts.filter(product => {
+                            const searchText = (product.name + ' ' + product.description + ' ' + product.category).toLowerCase();
+                            return searchText.includes(query);
+                        });
+                        
+                        displaySearchResults(filtered, mobileSearchResults);
+                        mobileSearchResults.classList.add('show');
+                    }, 300);
+                });
+                
+                document.addEventListener('click', function(event) {
+                    const mobileSearchContainer = document.getElementById('mobileSearch');
+                    const searchButton = document.querySelector('.navbar .btn-link[onclick*="toggleMobileSearch"]');
+                    
+                    if (!mobileSearchContainer.contains(event.target) && 
+                        !searchButton.contains(event.target)) {
+                        mobileSearchResults.classList.remove('show');
+                    }
+                });
+                
+                mobileSearchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && this.value.trim()) {
+                        const query = validateSearch(this.value.trim());
+                        if (query) {
+                            showNotification('info', 'Pencarian', `Mencari "${query}"...`);
+                            mobileSearchResults.classList.remove('show');
+                            toggleMobileSearch();
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error initializing mobile search:', error);
+            }
+        }
+        
+        function toggleMobileSearch() {
+            try {
+                const mobileSearchContainer = document.getElementById('mobileSearch');
+                const mobileSearchInput = document.getElementById('mobileSearchInput');
+                
+                if (mobileSearchContainer.classList.contains('show')) {
+                    mobileSearchContainer.classList.remove('show');
+                    document.getElementById('mobileSearchResults').classList.remove('show');
+                    mobileSearchInput.value = '';
+                } else {
+                    mobileSearchContainer.classList.add('show');
+                    if (mobileSearchInput) {
+                        setTimeout(() => {
+                            mobileSearchInput.focus();
+                            mobileSearchInput.select();
+                        }, 100);
+                    }
+                }
+            } catch (error) {
+                console.error('Error toggling mobile search:', error);
+            }
+        }
+        
+        function displaySearchResults(products, container) {
+            try {
+                if (products.length === 0) {
+                    container.innerHTML = `
+                        <div class="dropdown-item p-3" role="option">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-search text-muted me-2"></i>
+                                <div>
+                                    <div>Produk tidak ditemukan</div>
+                                    <small class="text-muted">Coba kata kunci lain</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = products.map(product => `
+                    <a class="dropdown-item p-3 border-bottom border-secondary" 
+                       href="${product.page}" 
+                       onclick="this.closest('.search-results').classList.remove('show')"
+                       role="option">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-${product.icon} text-primary me-2"></i>
+                                <div>
+                                    <div class="fw-medium">${product.name}</div>
+                                    <small class="text-muted">${product.description}</small>
+                                </div>
+                            </div>
+                            <span class="text-primary fw-bold">${product.price}</span>
+                        </div>
+                    </a>
+                `).join('');
+            } catch (error) {
+                console.error('Error displaying search results:', error);
+            }
+        }
+        
+        // =========== MOBILE SIDEBAR ===========
+        function initMobileSidebar() {
+            try {
+                const overlay = document.getElementById('sidebarOverlay');
+                const sidebar = document.getElementById('mobileSidebar');
+                
+                if (overlay) overlay.addEventListener('click', closeMobileSidebar);
+            } catch (error) {
+                console.error('Error initializing mobile sidebar:', error);
+            }
+        }
+        
+        function openMobileSidebar() {
+            try {
+                document.getElementById('sidebarOverlay').classList.add('show');
+                document.getElementById('mobileSidebar').classList.add('show');
+                document.body.style.overflow = 'hidden';
+                
+                // Update aria-expanded
+                const toggleButton = document.querySelector('[aria-controls="mobileSidebar"]');
+                if (toggleButton) {
+                    toggleButton.setAttribute('aria-expanded', 'true');
+                }
+            } catch (error) {
+                console.error('Error opening mobile sidebar:', error);
+            }
+        }
+        
+        function closeMobileSidebar() {
+            try {
+                document.getElementById('sidebarOverlay').classList.remove('show');
+                document.getElementById('mobileSidebar').classList.remove('show');
+                document.body.style.overflow = '';
+                
+                // Update aria-expanded
+                const toggleButton = document.querySelector('[aria-controls="mobileSidebar"]');
+                if (toggleButton) {
+                    toggleButton.setAttribute('aria-expanded', 'false');
+                }
+            } catch (error) {
+                console.error('Error closing mobile sidebar:', error);
+            }
+        }
+        
+        function toggleMobileSidebar() {
+            try {
+                const sidebar = document.getElementById('mobileSidebar');
+                const isOpen = sidebar.classList.contains('show');
+                
+                if (isOpen) {
+                    closeMobileSidebar();
+                } else {
+                    openMobileSidebar();
+                }
+            } catch (error) {
+                console.error('Error toggling mobile sidebar:', error);
+            }
+        }
+        
+        // =========== LOAD USER DATA ===========
+        function loadUserData() {
+            try {
+                const userName = localStorage.getItem('user_name') || 'lulu';
+                const userPhone = localStorage.getItem('user_phone') || 'Q85212345678';
+                const userBalance = localStorage.getItem('user_balance') || '825000';
+                const userPoints = localStorage.getItem('user_points') || '1250';
+                const userActiveDays = localStorage.getItem('user_active_days') || '30';
+                
+                document.getElementById('userName').textContent = userName;
+                document.getElementById('sidebarUserName').textContent = userName;
+                
+                const formattedPhone = userPhone.replace(/(\d{4})(\d{4})(\d{0,4})/, '$1 •••• $3').trim();
+                document.getElementById('userPhone').textContent = formattedPhone;
+                document.getElementById('sidebarUserPhone').textContent = formattedPhone;
+                
+                const formattedBalance = 'Rp ' + parseInt(userBalance).toLocaleString('id-ID');
+                document.getElementById('userBalance').textContent = formattedBalance;
+                document.getElementById('mainBalance').textContent = formattedBalance;
+                
+                document.getElementById('userPoints').textContent = userPoints;
+                document.getElementById('userActiveDays').textContent = userActiveDays;
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                showNotification('error', 'Error', 'Gagal memuat data pengguna');
+            }
+        }
+        
+        // =========== LOAD TRANSACTION STATISTICS ===========
+        function loadTransactionStats() {
+            try {
+                const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+                const purchases = JSON.parse(localStorage.getItem('user_purchase_history') || '[]');
+                const simpleTx = JSON.parse(localStorage.getItem('user_transactions') || '[]');
+
+                const now = new Date();
+                const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+                let monthCount = 0;
+                let monthSpent = 0;
+
+                const mapSimple = simpleTx.map(tx => ({ amount: tx.amount || tx.price || 0, date: tx.date || tx.purchaseDate || new Date().toISOString(), type: tx.type || '' }));
+                const mapPurchases = purchases.map(p => ({ amount: p.price || p.amount || 0, date: p.purchaseDate || p.date || new Date().toISOString(), type: p.type || '' }));
+
+                const records = [].concat(transactions, mapPurchases, mapSimple);
+
+                records.forEach(r => {
+                    const d = new Date(r.date || r.purchaseDate || r.purchase_date || null);
+                    if (isNaN(d)) return;
+                    if (d >= monthStart) {
+                        monthCount++;
+                        const amt = Number(r.amount ?? r.price ?? 0) || 0;
+                        if (!isNaN(amt)) {
+                            if (amt < 0) {
+                                monthSpent += Math.abs(amt);
+                            } else {
+                                const t = (r.type || '').toLowerCase();
+                                if (t && t !== 'topup') {
+                                    monthSpent += amt;
+                                }
+                            }
+                        }
+                    }
+                });
+
+                document.getElementById('transaksiCount').textContent = monthCount;
+                document.getElementById('totalSpent').textContent = 'Rp ' + monthSpent.toLocaleString('id-ID');
+            } catch (err) {
+                console.error('Error loading transaction stats:', err);
+            }
+        }
+        
+        // =========== NOTIFICATION ===========
+        function showNotification(type, title, message) {
+            try {
+                const notification = new bootstrap.Toast(document.getElementById('notification'));
+                const titleEl = document.getElementById('notificationTitle');
+                const messageEl = document.getElementById('notificationMessage');
+                
+                titleEl.textContent = title;
+                messageEl.textContent = message;
+                
+                // Set background color based on type
+                const toast = document.getElementById('notification');
+                toast.className = 'toast align-items-center text-bg-primary border-0';
+                
+                if (type === 'success') {
+                    toast.className = 'toast align-items-center text-bg-success border-0';
+                } else if (type === 'error') {
+                    toast.className = 'toast align-items-center text-bg-danger border-0';
+                } else if (type === 'info') {
+                    toast.className = 'toast align-items-center text-bg-info border-0';
+                } else if (type === 'warning') {
+                    toast.className = 'toast align-items-center text-bg-warning border-0';
+                }
+                
+                notification.show();
+            } catch (error) {
+                console.error('Error showing notification:', error);
+            }
+        }
+        
+        // =========== LOGOUT ===========
+        function logout() {
+            try {
+                showNotification('success', 'Logout', 'Berhasil logout...');
+                setTimeout(() => {
+                    localStorage.removeItem('isLoggedIn');
+                    window.location.href = 'login.html';
+                }, 1500);
+            } catch (error) {
+                console.error('Error during logout:', error);
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // =========== CLEANUP ===========
+        window.addEventListener('beforeunload', function() {
+            if (promoInterval) clearInterval(promoInterval);
+            if (searchTimeout) clearTimeout(searchTimeout);
+            if (mobileSearchTimeout) clearTimeout(mobileSearchTimeout);
+        });
+        
+        // =========== EVENT LISTENERS ===========
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'user_purchase_history' || e.key === 'user_transactions' || e.key === 'transactions') {
+                loadTransactionStats();
+            }
+        });
+        
+        // Cleanup on page hide
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && promoInterval) {
+                clearInterval(promoInterval);
+            } else if (!document.hidden && !promoInterval) {
+                setupPromoAutoSlide();
+            }
+        });
+    </script>
+</body>
+</html>
